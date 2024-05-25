@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         header('Location: ../login.php?sucesso=cadastrousuario');
         
     }else{
-        echo ('Location: ../login.php?falha=cadastrousuario');
+        header ('Location: ../login.php?falha=cadastrousuario');
     }
 
 }else{
