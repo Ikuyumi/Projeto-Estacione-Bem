@@ -1,5 +1,10 @@
 <?php
 // Painel de administração
+require_once('actions/classes/Estacionamento.class.php');
+require_once('actions/classes/FilaDeServico.class.php');
+require_once('actions/classes/Registro.class.php');
+require_once('actions/classes/Tipo.class.php');
+require_once('actions/classes/Servico.class.php');
 
 session_start();
 // Verificar se a sessão não existe:
@@ -9,6 +14,11 @@ if (!isset($_SESSION['usuario'])) {
     die();
 }
 
+// Puxar os tipos:
+$t = new Tipo();
+$tipos = $t->Listar();
+
+
 ?>
 
 <html>
@@ -17,8 +27,7 @@ if (!isset($_SESSION['usuario'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Painel de controle</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
 
@@ -32,94 +41,92 @@ if (!isset($_SESSION['usuario'])) {
     <div class="row">
         <!-- MENU LATERAL -->
         <div class="col-md-2 bg-dark vh-100 p-2">
-                <a href="#" class=" text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="25" height="45">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                    <span class="fs-4">Estacione Bem</span>
-                </a>
+            <a href="#" class=" text-white text-decoration-none">
+                <svg class="bi pe-none me-2" width="25" height="45">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Estacione Bem</span>
+            </a>
 
-                <ul class="nav nav-pills" style="display: block;">
+            <ul class="nav nav-pills" style="display: block;">
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active" aria-current="page" id="Painel">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#home"></use>
-                            </svg>
-                            Painel
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="RegistroEntrada" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#entrada"></use>
-                            </svg>
-                            Registro de entrada
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="MovimentacoesDoDia" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#movimentacoes"></use>
-                            </svg>
-                            Movimentações
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#table"></use>
-                            </svg>
-                            Mensalistas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#table"></use>
-                            </svg>
-                            Histórico financeiro
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#grid"></use>
-                            </svg>
-                            Configurações
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#people-circle"></use>
-                            </svg>
-                            Gerar relatório
-                        </a>
-                    </li>
-                    <hr>
-                </ul>
-                <hr>
-                <div class="dropdown p-4 ">
-                    <hr>
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"
-                            alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong>Usuário</strong>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" aria-current="page" id="Painel">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                        Painel
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
-                        <li><a class="dropdown-item" href="#">Configurações</a></li>
-                        <li><a class="dropdown-item" href="#">Nome do estacionamento</a></li>
-                        <li><a class="dropdown-item" href="#">Contrato</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sair</a></li>
-                    </ul>
-                </div>
-            
+                </li>
+                <li>
+                    <a href="#" id="RegistroEntrada" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#entrada"></use>
+                        </svg>
+                        Registro de entrada
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="MovimentacoesDoDia" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#movimentacoes"></use>
+                        </svg>
+                        Movimentações
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#table"></use>
+                        </svg>
+                        Mensalistas
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#table"></use>
+                        </svg>
+                        Histórico financeiro
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#grid"></use>
+                        </svg>
+                        Configurações
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#people-circle"></use>
+                        </svg>
+                        Gerar relatório
+                    </a>
+                </li>
+                <hr>
+            </ul>
+            <hr>
+            <div class="dropdown p-4 ">
+                <hr>
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>Usuário</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><a class="dropdown-item" href="#">Configurações</a></li>
+                    <li><a class="dropdown-item" href="#">Nome do estacionamento</a></li>
+                    <li><a class="dropdown-item" href="#">Contrato</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="actions/sair.php">Sair</a></li>
+                </ul>
+            </div>
+
         </div>
 
         <div class="col-md">
@@ -157,7 +164,7 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
             <!-- REGISTRO DE ENTRADA -->
-            <div id="entrada" class="col-10 container-md m-2 border">
+            <div action="actions/registrar_veiculo.php" id="entrada" class="col-10 container-md m-2 border">
                 <form class="m-3" action="">
 
                     <h2 class="mb-4 fw-bolder">Registrar entrada</h2>
@@ -179,8 +186,11 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="col-3">
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Selecione</option>
-                                <option value="1">Moto</option>
-                                <option value="2">Carro</option>
+
+                                <?php foreach ($tipos as $_listartipos) { ?>
+                                    <option><?= $_listartipos['tipo']; ?></option>
+                                <?php  } ?>
+
                             </select>
                         </div>
                     </div>
@@ -198,6 +208,7 @@ if (!isset($_SESSION['usuario'])) {
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Mensal
+
                             </label>
 
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -209,8 +220,10 @@ if (!isset($_SESSION['usuario'])) {
                     <div class="row">
                         <div class="col-3">&nbsp;</div>
                         <div class=" col-2 m-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check- fw-bolder" for="exampleCheck1">Possui avarias</label>
+                            <input type="checkbox" id="avarias" class="form-check-input"  onclick="MostrarObservacao()">
+                            <label class="form-check- fw-bolder" for="avarias">Possui avarias</label>
+                            <!-- Abrir caixa de observações -->
+                            <p id="observacoes" style="display:none"><input type="text" ></p>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary m-2">Registrar</button>
@@ -338,15 +351,9 @@ if (!isset($_SESSION['usuario'])) {
     </div>
 
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
@@ -354,30 +361,39 @@ if (!isset($_SESSION['usuario'])) {
         $("#entrada").hide();
         $("#movimentacoes").hide();
 
+        function MostrarObservacao() {
+            // Get the checkbox
+            var checkBox = document.getElementById("avarias");
+            // Get the output text
+            var text = document.getElementById("observacoes");
 
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
 
         // Alternar entre telas:
-        $("#RegistroEntrada").click(function () {
+        $("#RegistroEntrada").click(function() {
             $("#painel").hide();
             // $("#painel").removeClass('active');
             //  $("#RegistroEntrada").addClass('active');
             $("#movimentacoes").hide();
             $("#entrada").fadeIn();
         });
-        $("#Painel").click(function () {
+        $("#Painel").click(function() {
             $("#painel").fadeIn();
             $("#movimentacoes").hide();
             $("#entrada").hide();
         });
-        $("#MovimentacoesDoDia").on("click", function () {
+        $("#MovimentacoesDoDia").on("click", function() {
             $("#movimentacoes").fadeIn();
             $("#movimentacoesHoje").fadeIn();
             $("#painel").hide();
             $("#entrada").hide();
-
-
         });
-
     </script>
 
 

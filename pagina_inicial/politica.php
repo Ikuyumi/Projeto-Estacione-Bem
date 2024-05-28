@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
+
 <head>
     <!-- basic -->
     <meta charset="utf-8">
@@ -29,6 +30,14 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+      <style>
+
+    #termos_e_condicoes, #politica_de_privacidade{
+        display: none;
+    }
+
+      </style>
 </head>
 <!-- body -->
 
@@ -43,7 +52,7 @@
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt="#" width="200px" /></a>
+                                    <a href="index.php"><img src="images/logo.png" alt="#" width="200px" /></a>
                                 </div>
                             </div>
                         </div>
@@ -99,8 +108,8 @@
             <div class="container pb-5">
                 <div class="row">
                     <div class="col-md">
-                        <a class="nav-link politica" href="#" id="privacidade">Política de Privacidade</a>
-                        <a class="nav-link politica" href="#" id="termos" >Termos e condições</a>
+                        <a class="nav-link politica" href="#privacidade" id="privacidade">Política de Privacidade</a>
+                        <a class="nav-link politica" href="#termos" id="termos">Termos e condições</a>
                         <!-- Política de Privacidade -->
                         <div class="multipurpose" id="politica_de_privacidade">
                             <p>A sua privacidade é importante para nós. É política do Estacione Bem respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site Estacione Bem, e outros sites que possuímos e operamos. <br>
@@ -118,10 +127,40 @@
                         <!-- Termos e Condições -->
                         <div class="multipurpose" id="termos_e_condicoes">
                             <p>
-                                1. Termos <br> 
+                                1. Termos <br>
                                 Ao acessar ao site Estacione Bem, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. <br>
                                 Se você não concordar com algum desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.
+
                             </p>
+                            <p>
+                                2. Uso de Licença <br>
+                                É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) no site Estacione Bem , apenas para visualização transitória pessoal e não comercial. Esta é a concessão <br>
+                                de uma licença, não uma transferência de título e, sob esta licença, você não pode:
+                                -modificar ou copiar os materiais; <br>
+                                -usar os materiais para qualquer finalidade comercial ou para exibição pública (comercial ou não comercial); <br>
+                                -tentar descompilar ou fazer engenharia reversa de qualquer software contido no site Estacione Bem; <br>
+                                -remover quaisquer direitos autorais ou outras notações de propriedade dos materiais; ou <br>
+                                -transferir os materiais para outra pessoa ou 'espelhe' os materiais em qualquer outro servidor. <br>
+                                -Esta licença será automaticamente rescindida se você violar alguma dessas restrições e poderá ser rescindida por Estacione Bem a qualquer momento. <br>
+                                Ao encerrar a visualização desses materiais ou após o término desta licença, você deve apagar todos os materiais baixados em sua posse, seja em formato eletrónico ou impresso.
+                            </p>
+                            <p>
+                                3. Limitações <br>
+                                Em nenhum caso o Estacione Bem ou seus fornecedores serão responsáveis ​​por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar <br>
+                                os materiais em Estacione Bem, mesmo que Estacione Bem ou um representante autorizado da Estacione Bem tenha sido notificado oralmente ou por escrito da possibilidade de tais danos. Como algumas jurisdições não permitem limitações em garantias <br>
+                                implícitas, ou limitações de responsabilidade por danos conseqüentes ou incidentais, essas limitações podem não se aplicar a você.
+                            </p>
+                            <p>
+                                4. Precisão dos materiais <br>
+                                Os materiais exibidos no site da Estacione Bem podem incluir erros técnicos, tipográficos ou fotográficos. Estacione Bem não garante que qualquer material em seu site seja preciso, completo ou atual. <br>
+                                Estacione Bem pode fazer alterações nos materiais contidos em seu site a qualquer momento, sem aviso prévio. No entanto, Estacione Bem não se compromete a atualizar os materiais.
+                            </p>
+                            <p>
+                            5. Links <br>
+                            O Estacione Bem não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por Estacione Bem do site. <br>
+                            O uso de qualquer site vinculado é por conta e risco do usuário.
+                            </p>
+
                             <br>
 
                         </div>
@@ -157,12 +196,14 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
-        $("#termos_e_condicoes").hide();
-        $("#politica_de_privacidade").hide();
-        // Alternar entre telas:
+        // Alternar entre formulários login x cadastro:
         $("#privacidade").click(function() {
             $("#termos_e_condicoes").hide();
             $("#politica_de_privacidade").fadeIn();
+        });
+        $("#termos").click(function() {
+            $("#politica_de_privacidade").hide();
+            $("#termos_e_condicoes").fadeIn();
         });
     </script>
 </body>
