@@ -198,7 +198,7 @@ $listserv = $serv->Listar();
                             <label for="tipo" class="form-label fw-bolder">Tipo de veículo </label>
                         </div>
                         <div class="col-3">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" id="id_tipo" name="id_tipo">
                                 <option selected>Selecione</option>
                                 <?php foreach ($tipos as $_listartipos) { ?>
                                     <option><?= $_listartipos['tipo']; ?></option>
@@ -223,10 +223,10 @@ $listserv = $serv->Listar();
                     <div class="row">
                         <div class="col-3">&nbsp;</div>
                         <div class=" col-2 m-3 form-check">
-                            <input type="checkbox" id="avarias" class="form-check-input"  onclick="MostrarObservacao()">
-                            <label class="form-check- fw-bolder" for="avarias">Possui avarias</label>
+                            <input type="checkbox" id="observacoes" class="form-check-input"  onclick="MostrarObservacao()">
+                            <label class="form-check- fw-bolder" for="observacoes">Possui avarias</label>
                             <!-- Abrir caixa de observações -->
-                            <p id="observacoes" style="display:none"><input type="text" ></p>
+                            <p id="observacoes" name="observacoes" style="display:none"><input type="text" ></p>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary m-2">Registrar</button>
