@@ -19,9 +19,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($u->Cadastrar() == 1){
         // Redirecionar de volta para login:
         header('Location: ../login.php?sucesso=cadastrousuario');
+        die();
         
     }else{
         header ('Location: ../login.php?falha=cadastrousuario');
+        die();
     }
 
 }else{

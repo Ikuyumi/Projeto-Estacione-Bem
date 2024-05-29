@@ -7,15 +7,15 @@
         die();
     }
 
-if($_SERVER['REQUESTED METHOD'] === 'POST'){
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
     require_once('classes/Estacionamento.class.php');
     $v = new Estacionamento();
     $v->placa = strip_tags($_POST['placa']);
-    $v->celular = strip_tags($_POST['celular']);
-    $v->data_entrada = strip_tags($_POST['data_entrada']);
-    $v->data_saida = strip_tags($_POST['data_saida']);
+    $v->celular = strip_tags($_SESSION['usuario']['telefone']);
+    $v->data_entrada = strip_tags(date("Y-m-d H:i:s", time()));
     $v->convenio = strip_tags($_POST['convenio']);
-    $v->id_usuario = strip_tags($_SESSION['usuario'],['id']);
+    $v->id_usuario = strip_tags($_SESSION['usuario']['id']);
     $v->id_tipo = strip_tags($_POST['id_tipo']);
     $v->observacoes = strip_tags($_POST['observacoes']);
 
@@ -27,8 +27,10 @@ if($_SERVER['REQUESTED METHOD'] === 'POST'){
 
         if ($p->Cadastrar() === 1) {
             header('Location: ../index.php?sucesso=registroveiculo');
+            die();
         } else {
             header('Location: ../index.php?falha=registroveiculo');
+            die();
         }
 }
 ?>

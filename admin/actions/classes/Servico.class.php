@@ -10,11 +10,20 @@ class Servico{
         $sql = "SELECT * FROM servicos";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
+        $comando->execute();
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
+    }
+
+    public function ListarPorID(){
+        $sql = "SELECT * FROM servicos WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
         $comando->execute([$this->id]);
         Banco::desconectar();
         return $comando->rowCount();
     }
-
 }
 
 ?>

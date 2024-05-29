@@ -16,8 +16,10 @@
         if($v->Apagar() == 1){
             // Redirecionar de volta ao index.php:
             header('Location: ../index.php?sucesso=removerveiculo');
+            die();
         }else{
             header('Location: ../index.php?falha=removerveiculo');
+            die();
         }
     }else{
         echo "Erro! Informe o ID a ser apagado.";

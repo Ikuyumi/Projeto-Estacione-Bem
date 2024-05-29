@@ -12,9 +12,11 @@
             session_start();
             $_SESSION['usuario'] = $resultado[0];
             header('Location: ../index.php');
+            die();
         }
         else{
             header('Location: ../login.php?falha=falhalogin');
+            die();
         }
             
     }else{

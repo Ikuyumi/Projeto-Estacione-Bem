@@ -5,6 +5,7 @@ require_once('actions/classes/FilaDeServico.class.php');
 require_once('actions/classes/Registro.class.php');
 require_once('actions/classes/Tipo.class.php');
 require_once('actions/classes/Servico.class.php');
+require_once('actions/classes/Usuario.class.php');
 
 session_start();
 // Verificar se a sessão não existe:
@@ -18,7 +19,10 @@ if (!isset($_SESSION['usuario'])) {
 $t = new Tipo();
 $tipos = $t->Listar();
 
+$u = new Usuario();
 
+$serv = new Servico();
+$listserv = $serv->Listar();
 ?>
 
 
@@ -42,7 +46,6 @@ $tipos = $t->Listar();
         color: rgb(202, 67, 13);
 
     }
-
 
     ul li a:hover {
         font-size: 13pt;
@@ -123,7 +126,7 @@ $tipos = $t->Listar();
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"
                         alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>Usuário</strong>
+                    <strong>Perfil</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal"
@@ -176,7 +179,7 @@ $tipos = $t->Listar();
             </div>
             <!-- REGISTRO DE ENTRADA -->
             <div id="entrada" class="col-10 container-md m-2 border">
-                <form class="m-3" action="">
+                <form class="m-3" action="actions/registrar_veiculo.php" method="POST">
 
                     <h2 class="mb-4 fw-bolder">Registrar entrada</h2>
                     <hr>
@@ -209,20 +212,12 @@ $tipos = $t->Listar();
                             <label for="tipoDeConvenio" class="form-label ">Tipo De Convênio:</label>
                         </div>
                         <div class="col mb-2">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Avulso
+                            <?php foreach ($listserv as $convenio) {?>
+                            <input class="form-check-input" type="radio" name="convenio" id="convenio" value="<?=$convenio['id']; ?>">
+                            <label class="form-check-label" for="convenio">
+                                <?= $convenio['servico'] ?>
                             </label>
-
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Mensal
-                            </label>
-
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Lavagem
-                            </label>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="row">
@@ -437,13 +432,13 @@ $tipos = $t->Listar();
                         <div class=" image d-flex flex-column justify-content-center align-items-center"> <button
                                 class="btn btn-secondary"> <img
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"
-                                    height="100" width="100" /></button> <span class="name mt-3">Juca Estacione</span>
-                            <span class="idd">@Jucacannon</span>
+                                    height="100" width="100" /></button> <span class="name mt-3"><?=$_SESSION['usuario']['nome'];?></span>
+                            <span class="idd"><?=$_SESSION['usuario']['email'];?></span>
 
                             <div class=" d-flex mt-2"> <button class="btn1 btn-dark" type="button"
                                     data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar Perfil</button>
                             </div>
-                            <div class="text mt-3"> <span>Administrador do estacionamento<br> </div>
+                            <div class="text mt-3"> <span>Administrador do Estacionamento<br> </div>
 
                             <div class=" px-2 rounded mt-4 date "> <span class="join">Ingressou Maio, 2024</span> </div>
                         </div>
@@ -466,7 +461,7 @@ $tipos = $t->Listar();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="actions/editar_usuario.php" method="POST">
                         <div class=" d-flex justify-content-center align-items-center mb-3">
                             <h4 class="text-center">Configurações do perfil</h4>
                         </div>
@@ -474,8 +469,8 @@ $tipos = $t->Listar();
                             <div class="d-flex flex-column align-items-center text-center p-1 "><img
                                     class="rounded-circle " width="150px"
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"><span
-                                    class="font-weight-bold">Jucacannon</span><span
-                                    class="text-black-50">Juca123@gmail.com</span><span> </span>
+                                    class="font-weight-bold"><?=$_SESSION['usuario']['nome'];?></span><span
+                                    class="text-black-50"><?=$_SESSION['usuario']['email'];?></span><span> </span>
                                 <br>
                                 <a href="#" class="btn btn-primary btn-block"><b>Editar foto</b></a>
                             </div>
@@ -616,6 +611,11 @@ $tipos = $t->Listar();
 
 
 </body>
+<?php 
+    
+    include_once('includes/alertas.include.php');
+    
+    ?>
 
 </html>
 </div>

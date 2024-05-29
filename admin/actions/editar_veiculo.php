@@ -25,9 +25,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         if($v->Editar() === 1){
             header ('Location: ../index.php?sucesso=editarveiculo');
+            die();
         }
         else{
             header ('Location: ../index.php?falha=editarveiculo');
+            die();
         }
 
 }
