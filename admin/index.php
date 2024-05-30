@@ -24,16 +24,10 @@ $u = new Usuario();
 $serv = new Servico();
 $listserv = $serv->Listar();
 
-//
-
-$nome = $_SESSION['usuario']['nome'];
-
-
-
- $PrimeiroNome (explode(" ",$nome));
-
+//PEGAR PRIMEIRO NÚMERO
+ $PrimeiroNome = (explode(" ",$_SESSION['usuario']['nome']));
+ 
 ?>
-
 
 <html>
 
@@ -52,7 +46,6 @@ $nome = $_SESSION['usuario']['nome'];
 
     #Titulo {
         color: rgb(202, 67, 13);
-
     }
 
 
@@ -134,7 +127,7 @@ $nome = $_SESSION['usuario']['nome'];
 
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?= $PrimeiroNome ?></strong>
+                    <strong><?=  ($PrimeiroNome[0]) ?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</a></li>
@@ -143,7 +136,7 @@ $nome = $_SESSION['usuario']['nome'];
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Sair</a></li>
+                    <li><a class="dropdown-item" href="actions/sair.php">Sair</a></li>
                 </ul>
             </div>
         </div>
