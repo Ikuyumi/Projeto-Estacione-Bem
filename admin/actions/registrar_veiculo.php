@@ -21,15 +21,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
      // Verificar por dados inválidos:
         if(strlen($v->placa) !=7 || $v->celular == ""){
-          // header('Location: ../index.php');
+          header('Location: ../index.php');
+          
             die();
         }
 
-        if ($v->Cadastrar() === 1) {
-           //header('Location: ../index.php?sucesso=registroveiculo');
+        if ($v->Cadastrar() == 1) {
+           header('Location: ../index.php?sucesso=registroveiculo');
+         
             die();
+
         } else {
-           //header('Location: ../index.php?falha=registroveiculo');
+           header('Location: ../index.php?falha=registroveiculo');
+           
             die();
         }
 }

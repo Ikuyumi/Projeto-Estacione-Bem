@@ -23,6 +23,15 @@ $u = new Usuario();
 
 $serv = new Servico();
 $listserv = $serv->Listar();
+
+//
+
+$nome = $_SESSION['usuario']['nome'];
+
+
+
+ $PrimeiroNome (explode(" ",$nome));
+
 ?>
 
 
@@ -32,8 +41,7 @@ $listserv = $serv->Listar();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Painel de controle</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
 
@@ -46,6 +54,7 @@ $listserv = $serv->Listar();
         color: rgb(202, 67, 13);
 
     }
+
 
     ul li a:hover {
         font-size: 13pt;
@@ -110,11 +119,11 @@ $listserv = $serv->Listar();
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="#" id="ControleDeVagas" class="nav-link text-white">
                         <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#grid"></use>
+                            <use xlink:href="#ControleDeVagas"></use>
                         </svg>
-                        Configurações
+                        Controle de vagas
                     </a>
                 </li>
                 <hr>
@@ -122,27 +131,24 @@ $listserv = $serv->Listar();
             <hr>
             <div class="dropdown p-4 ">
                 <hr>
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"
-                        alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>Perfil</strong>
+
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong><?= $PrimeiroNome ?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal"
-                            data-bs-target="#modalPerfil">Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Nome do estacionamento</a></li>
-                    <li><a class="dropdown-item" href="#">Contrato</a></li>
+                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</a></li>
+                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar perfil</a></li>
+                    <!-- <li><a class="dropdown-item" href="#">Contrato</a></li> -->
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="actions/sair.php">Sair</a></li>
+                    <li><a class="dropdown-item" href="#">Sair</a></li>
                 </ul>
             </div>
-
         </div>
 
-        <div class="col-md">
+        <div class="col-md ">
 
             <!-- PAINEL -->
             <div class="row  ">
@@ -201,7 +207,7 @@ $listserv = $serv->Listar();
                             <select class="form-select" aria-label="Default select example" id="id_tipo" name="id_tipo">
                                 <option selected>Selecione</option>
                                 <?php foreach ($tipos as $_listartipos) { ?>
-                                    <option><?= $_listartipos['tipo']; ?></option>
+                                    <option value="<?= $_listartipos['id']; ?>"><?= $_listartipos['tipo']; ?></option>
                                 <?php  } ?>
                             </select>
                         </div>
@@ -212,30 +218,32 @@ $listserv = $serv->Listar();
                             <label for="tipoDeConvenio" class="form-label ">Tipo De Convênio:</label>
                         </div>
                         <div class="col mb-2">
-                            <?php foreach ($listserv as $convenio) {?>
-                            <input class="form-check-input" type="radio" name="convenio" id="convenio" value="<?=$convenio['id']; ?>">
-                            <label class="form-check-label" for="convenio">
-                                <?= $convenio['servico'] ?>
-                            </label>
+                            <?php foreach ($listserv as $convenio) { ?>
+                                <input class="form-check-input" type="radio" name="convenio" id="convenio" value="<?= $convenio['id']; ?>">
+                                <label class="form-check-label" for="convenio">
+                                    <?= $convenio['servico']; ?>
+                                </label>
                             <?php } ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3">&nbsp;</div>
                         <div class=" col-2 m-3 form-check">
-                            <input type="checkbox" id="observacoes" class="form-check-input"  onclick="MostrarObservacao()">
+                            <input type="checkbox" id="avarias" class="form-check-input" onclick="MostrarObservacao()">
                             <label class="form-check- fw-bolder" for="observacoes">Possui avarias</label>
                             <!-- Abrir caixa de observações -->
-                            <p id="observacoes" name="observacoes" style="display:none"><input type="text" ></p>
+                            <div class="form-floating" id="observacoes" style="display:none">
+                                <textarea class="form-control" placeholder="Digite as observações/avarias do seu veículo." id="observacoes" style="height: 50px"></textarea>
+                                <label for="observacoes" name="observacoes">Avarias</label>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary m-2">Registrar</button>
                 </form>
             </div>
-
             <!-- MOVIMENTAÇÕES -->
             <div id="movimentacoes" class="row">
-                <div class="col-md-5 container-md m-2 p-3">
+                <div class="col-md-5 container-md m-2 p-3 border">
                     <form class="row" action="">
                         <hr>
                         <h2 class="mb-4 fw-bolder">Movimentações</h2>
@@ -281,13 +289,11 @@ $listserv = $serv->Listar();
                                 <th scope="row"> CAIXA</th>
                                 <td>R$ 0,00</td>
                             </tr>
-
-
                         </table>
                     </form>
                 </div>
                 <!-- HISTÓRICO DE MOVIMENTAÇÕES -->
-                <div class="col-md-6 container-md m-2 p-3">
+                <div class="col-md-6 container-md m-2 p-3 border">
                     <form class="row" action="">
                         <hr>
                         <h2 class="mb-4 fw-bolder">Histórico Movimentações</h2>
@@ -384,7 +390,6 @@ $listserv = $serv->Listar();
                                 <td>24/04/2024 21:38</td>
                                 <td>Em dia</td>
 
-
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
@@ -392,7 +397,6 @@ $listserv = $serv->Listar();
                                 <td>22/07/2024 21:38</td>
                                 <td>24/04/2024 21:38</td>
                                 <td>Em dia</td>
-
 
                             </tr>
                             <tr>
@@ -402,21 +406,46 @@ $listserv = $serv->Listar();
                                 <td>24/04/2024 21:38</td>
                                 <td>Em dia</td>
 
-
                             </tr>
                         </tbody>
                     </table>
                 </form>
             </div>
 
+            <!-- CONTROLE DE VAGAS -->
+            <div id="controleDeVagas" class="row">
+                <div class="col-md-5 container-md m-2 p-3">
+                    <form class="row" action="">
+                        <div class="card p-4">
+                            <h2 class="mt-3 ">Controle de vagas <br> </h2>
+                            <hr>
+                            <table class="table mt-3">
+                                <tr>
+                                    <th scope="col">Total de vagas</th>
+
+                                    <td scope="col">20</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Vagas livres</th>
+                                    <td>19</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Vagas ocupadas</th>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <!-- Histórico financeiro (TESTE) -->
-            <div id="relatorio" style="width:100%;max-width:700px"></div>
-
-
+            <div class=" col-10 m-o " id="relatorio" style="width:100%;max-width:700px"></div>
         </div>
+
+    </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal's -->
 
     <!-- Perfil -->
     <div class="modal fade" id="modalPerfil" tabindex="-1" aria-labelledby="modalperfilLabel" aria-hidden="true">
@@ -427,33 +456,23 @@ $listserv = $serv->Listar();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="card p-4">
-                        <div class=" image d-flex flex-column justify-content-center align-items-center"> <button
-                                class="btn btn-secondary"> <img
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"
-                                    height="100" width="100" /></button> <span class="name mt-3"><?=$_SESSION['usuario']['nome'];?></span>
-                            <span class="idd"><?=$_SESSION['usuario']['email'];?></span>
-
-                            <div class=" d-flex mt-2"> <button class="btn1 btn-dark" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar Perfil</button>
-                            </div>
+                        <div class=" image d-flex flex-column justify-content-center align-items-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" height="100" width="100" /></button>
+                            <span class="name mt-3"><?= $_SESSION['usuario']['nome']; ?></span>
+                            <span class="idd"><?= $_SESSION['usuario']['email']; ?></span>
                             <div class="text mt-3"> <span>Administrador do Estacionamento<br> </div>
-
                             <div class=" px-2 rounded mt-4 date "> <span class="join">Ingressou Maio, 2024</span> </div>
                         </div>
                     </div>
-
                 </div>
-
-
             </div>
         </div>
     </div>
+    </div>
 
     <!-- Editar Perfil -->
-    <div class="modal fade" id="modalEditarPerfil" tabindex="-1" aria-labelledby="modaleditarPerfilLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modalEditarPerfil" tabindex="-1" aria-labelledby="modaleditarPerfilLabel" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -466,11 +485,7 @@ $listserv = $serv->Listar();
                             <h4 class="text-center">Configurações do perfil</h4>
                         </div>
                         <div class="image d-flex flex-column justify-content-center align-items-center">
-                            <div class="d-flex flex-column align-items-center text-center p-1 "><img
-                                    class="rounded-circle " width="150px"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"><span
-                                    class="font-weight-bold"><?=$_SESSION['usuario']['nome'];?></span><span
-                                    class="text-black-50"><?=$_SESSION['usuario']['email'];?></span><span> </span>
+                            <div class="d-flex flex-column align-items-center text-center p-1 "><img class="rounded-circle " width="150px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"><span class="font-weight-bold"><?= $_SESSION['usuario']['nome']; ?></span><span class="text-black-50"><?= $_SESSION['usuario']['email']; ?></span><span> </span>
                                 <br>
                                 <a href="#" class="btn btn-primary btn-block"><b>Editar foto</b></a>
                             </div>
@@ -486,8 +501,7 @@ $listserv = $serv->Listar();
                         </div>
                         <div class="mb-3 d-flex flex-column justify-content-center">
                             <label for="tel">Telefone</label>
-                            <input type="text" placeholder="Insira seu número de telefone celular" id="telefone"
-                                name="telefone">
+                            <input type="text" placeholder="Insira seu número de telefone celular" id="telefone" name="telefone">
                         </div>
                         <div class="mb-3 d-flex flex-column justify-content-center">
                             <label for="password">Senha</label>
@@ -501,22 +515,14 @@ $listserv = $serv->Listar();
                     </form>
                 </div>
             </div>
-
-
         </div>
     </div>
-    </div>
+
 
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- teste relatorio -->
@@ -528,66 +534,69 @@ $listserv = $serv->Listar();
         $("#movimentacoes").hide();
         $("#mensalistas").hide();
         $("#relatorio").hide();
+        $("#controleDeVagas").hide();
 
         // Alternar entre telas:
-        $("#RegistroEntrada").click(function () {
+        $("#RegistroEntrada").click(function() {
             $("#painel").hide();
             $("#movimentacoes").hide();
             $("#entrada").fadeIn();
             $("#mensalistas").hide();
             $("#relatorio").hide();
+            $("#controleDeVagas").hide();
 
         });
-        $("#Painel").click(function () {
+        $("#Painel").click(function() {
             $("#painel").fadeIn();
             $("#movimentacoes").hide();
             $("#entrada").hide();
             $("#mensalistas").hide();
             $("#relatorio").hide();
+            $("#controleDeVagas").hide();
 
         });
-        $("#MovimentacoesDoDia").on("click", function () {
+        $("#MovimentacoesDoDia").on("click", function() {
             $("#movimentacoes").fadeIn();
             $("#movimentacoesHoje").fadeIn();
             $("#painel").hide();
             $("#entrada").hide();
             $("#mensalistas").hide();
             $("#relatorio").hide();
+            $("#controleDeVagas").hide();
         });
-        $("#Mensalistas").on("click", function () {
+        $("#Mensalistas").on("click", function() {
             $("#movimentacoes").hide();
             $("#movimentacoesHoje").hide();
             $("#painel").hide();
             $("#entrada").hide();
             $("#relatorio").hide();
             $("#mensalistas").fadeIn();
+            $("#controleDeVagas").hide();
 
         });
 
-        $("#HistoricoFinanceiro").on("click", function () {
+        $("#HistoricoFinanceiro").on("click", function() {
             $("#movimentacoes").hide();
             $("#movimentacoesHoje").hide();
             $("#painel").hide();
             $("#entrada").hide();
             $("#mensalistas").hide();
+            $("#controleDeVagas").hide();
             $("#relatorio").fadeIn();
+
 
         });
 
-        function MostrarObservacao() {
-            // Get the checkbox
-            var checkBox = document.getElementById("avarias");
-            // Get the output text
-            var text = document.getElementById("observacoes");
+        $("#ControleDeVagas").on("click", function() {
+            $("#movimentacoes").hide();
+            $("#movimentacoesHoje").hide();
+            $("#painel").hide();
+            $("#entrada").hide();
+            $("#mensalistas").hide();
+            $("#relatorio").hide();
+            $("#controleDeVagas").fadeIn();
 
-            // If the checkbox is checked, display the output text
-            if (checkBox.checked == true) {
-                text.style.display = "block";
-            } else {
-                text.style.display = "none";
-            }
-        }
-
+        });
 
         //teste RELATÓRIO FINANCEIRO
         const xArray = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
@@ -597,25 +606,45 @@ $listserv = $serv->Listar();
             y: yArray,
             type: "bar",
             orientation: "v",
-            marker: { color: "rgba(0,0,255,0.6)" }
+            marker: {
+                color: "rgba(0,0,255,0.6)"
+            }
         }];
 
         const layout = {
             title: "Histórico financeiro",
-            xaxis: { title: "Mês" },
-            yaxis: { title: "Real" },
+            xaxis: {
+                title: "Mês"
+            },
+            yaxis: {
+                title: "Real"
+            },
         };
+
+        function MostrarObservacao() {
+            // Pegar o checkbox
+            var checkBox = document.getElementById("avarias");
+            // Pegar o texto inserido
+            var text = document.getElementById("observacoes");
+
+            // Se o checkbox estiver marcado, mostrar a caixa de texto
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
 
         Plotly.newPlot("relatorio", data, layout);
     </script>
 
+    <?php
+
+    include_once('includes/alertas.include.php');
+
+    ?>
 
 </body>
-<?php 
-    
-    include_once('includes/alertas.include.php');
-    
-    ?>
 
 </html>
 </div>

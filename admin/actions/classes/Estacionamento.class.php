@@ -27,15 +27,15 @@ class Estacionamento{
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        try{
+        //try{
         $comando->execute([$this->placa, $this->celular, $this->data_entrada, $this->data_saida, $this->convenio, 
         $this->id_usuario, $this->id_tipo, $this->observacoes]);
         Banco::desconectar();
         return $comando->rowCount();
-        }catch(PDOException $e){
-            Banco::desconectar();
-            return 0;
-        }
+        //}catch(PDOException $e){
+            //Banco::desconectar();
+            //return 0;
+       // }
     }
 
     public function Editar(){
