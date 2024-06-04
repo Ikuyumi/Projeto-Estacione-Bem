@@ -25,8 +25,8 @@ $serv = new Servico();
 $listserv = $serv->Listar();
 
 //PEGAR PRIMEIRO NÚMERO
- $PrimeiroNome = (explode(" ",$_SESSION['usuario']['nome']));
- 
+$PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
+
 ?>
 
 <html>
@@ -61,8 +61,8 @@ $listserv = $serv->Listar();
 <body>
     <div class="row">
         <!-- MENU LATERAL -->
-        <div class="col-md-2 bg-dark vh-100 p-2 menuLateral">
-            <a href="#" class=" text-white text-decoration-none">
+        <div class="col-md-2 col-sm-4 bg-dark vh-100 p-2 menuLateral">
+            <a href="#" class="text-white text-decoration-none">
                 <svg class="bi pe-none me-2 " width="25" height="45">
                     <use xlink:href="#bootstrap"></use>
                 </svg>
@@ -127,7 +127,7 @@ $listserv = $serv->Listar();
 
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong><?=  ($PrimeiroNome[0]) ?></strong>
+                    <strong><?= ($PrimeiroNome[0]) ?></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</a></li>
@@ -141,11 +141,11 @@ $listserv = $serv->Listar();
             </div>
         </div>
 
-        <div class="col-md ">
+        <div class="col-md-6 col-sm-4">
 
             <!-- PAINEL -->
-            <div class="row  ">
-                <div id="painel" class="col-md-7 m-2 border">
+            <div class="row">
+                <div id="painel" class="col-md-7 col-sm-12 m-2 border">
                     <form class="m-3" action="">
                         <h2 class="mb-4 fw-bolder">Posição atual</h2>
                         <hr>
@@ -177,26 +177,27 @@ $listserv = $serv->Listar();
                 </div>
             </div>
             <!-- REGISTRO DE ENTRADA -->
-            <div id="entrada" class="col-10 container-md m-2 border">
+            <div id="entrada" class="col-md-10 col-sm-10 container-md m-2 border">
                 <form class="m-3" action="actions/registrar_veiculo.php" method="POST">
 
                     <h2 class="mb-4 fw-bolder">Registrar entrada</h2>
                     <hr>
-                    <p class="mb-4 fs-5 opacity-75">Dados do veículo</p>
+                    <p class="mb-4 fs-5 opacity-75">Dados do Veículo</p>
                     <div class="row mb-3">
-                        <div class="col-3">
+                        <div class="col-sm-3 col-md-3">
                             <label for="placa" class="form-label fw-bolder ">Placa</label>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-4 col-sm-3">
                             <input type="text" class="form-control" id="placa" name="placa" placeholder="AAA-1A11">
                         </div>
                     </div>
-
+                  
+                    <br>
                     <div class="row mb-3">
-                        <div class="col-3">
-                            <label for="tipo" class="form-label fw-bolder">Tipo de veículo </label>
+                        <div class="col-md-4 col-sm-3">
+                            <label for="tipo" class="form-label fw-bolder">Tipo de veículo</label>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-4 col-sm-3">
                             <select class="form-select" aria-label="Default select example" id="id_tipo" name="id_tipo">
                                 <option selected>Selecione</option>
                                 <?php foreach ($tipos as $_listartipos) { ?>
@@ -207,7 +208,7 @@ $listserv = $serv->Listar();
                     </div>
 
                     <div class="row fw-bolder">
-                        <div class="col-3 mb-2  ">
+                        <div class="col-md-3 col-sm-3 mb-2  ">
                             <label for="tipoDeConvenio" class="form-label ">Tipo De Convênio:</label>
                         </div>
                         <div class="col mb-2">
@@ -220,8 +221,8 @@ $listserv = $serv->Listar();
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3">&nbsp;</div>
-                        <div class=" col-2 m-3 form-check">
+                        <div class="col-md-3 col-sm-3">&nbsp;</div>
+                        <div class=" col-md-2 m-3 form-check">
                             <input type="checkbox" id="avarias" class="form-check-input" onclick="MostrarObservacao()">
                             <label class="form-check- fw-bolder" for="observacoes">Possui avarias</label>
                             <!-- Abrir caixa de observações -->

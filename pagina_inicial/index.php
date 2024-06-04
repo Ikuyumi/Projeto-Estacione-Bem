@@ -81,7 +81,7 @@
    <section class="banner_main">
       <div class="container-fluid">
          <div class="row d_flex">
-            <div class="col-md-7">
+            <div class="col-md-7 col-12">
                <div class="text-bg">
                   <div class="padding_lert">
                      <h1>Sistema para seu Estacionamento <br>Privado</h1>
@@ -89,7 +89,7 @@
                   </div>
                </div>
             </div>
-            <div class="col-md-5 bah">
+            <div class="col-md-5 col-12">
                <div class="bann_img">
                   <figure><img src="images/bann_img.png" alt="#" /></figure>
                </div>
@@ -102,12 +102,12 @@
    <div id="services" class="service">
       <div class="container-fluid">
          <div class="row d_flex">
-            <div class="col-md-5">
+            <div class="col-md-5 col-12">
                <div class="service_img">
                   <figure><img src="images/pc.png" alt="#" /></figure>
                </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-12">
                <div class="titlepage">
                   <h2>Serviço completo, funcional e tecnológico para atender os seus consumidores!</h2>
                   <span>O melhor site de gerenciamento de estacionamentos do Brasil! Com o Estacione Bem você poderá
@@ -124,7 +124,7 @@
    <div class="solutions">
       <div class="container">
          <div class="row d_flex">
-            <div class="col-md-7">
+            <div class="col-md-7 col-12">
                <div class="titlepage">
                   <h2>Confira também <br>no celular</h2>
                   <span>O site também está disponível no celular, com a opção de tirar foto do veículo sendo mais
@@ -133,7 +133,7 @@
                   <a class="read_more" href="Javascript:void(0)">Saiba Mais</a>
                </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-12">
                <div class="solutions_img">
                   <figure><img src="images/solusan.png" alt="#" /></figure>
                </div>
@@ -156,22 +156,22 @@
             </div>
          </div>
          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-12">
                <div class="our_work">
                   <figure><img src="images/work1.jpg" alt="#" /></figure>
                </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-12">
                <div class="our_work">
                   <figure><img src="images/work2.jpg" alt="#" /></figure>
                </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-12">
                <div class="our_work">
                   <figure><img src="images/work3.jpg" alt="#" /></figure>
                </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-12">
                <div class="our_work">
                   <figure><img src="images/work4.jpg" alt="#" /></figure>
                </div>
@@ -185,12 +185,12 @@
       <div class="footer">
          <div class="container pb-5">
             <div class="row">
-               <div class="col-md-5">
+               <div class="col-md-5 col-12">
                   <div class="multipurpose">
-                     <h3>Vamos <br>Fechar <br> Acordos</h3>
+                     <h3>Vamos <br>Fechar <br> Acordos?</h3>
                   </div>
                </div>
-               <div class="col-md-7">
+               <div class="col-md-7 col-12">
                   <div class="multipurpose">
                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
                         the industry's standard dummy text ever since the Lorem Ipsum is simply dummy text of the
@@ -204,16 +204,16 @@
          </div>
 
          <div class="row rodape-1 pb-3 pt-5 border-bottom ">
-            <div class="col-md-3">
+            <div class="col-md-3 col-12">
                <a class="" href="#">Fale Conosco</a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-12">
                <a class="" href="../admin/login.php">Trabalhe Conosco</a>
             </div>
-            <div class="col-md-3">
-               <a class="" href="#">Termos de Uso</a>
+            <div class="col-md-3 col-12">
+               <a class="" href="politica.php">Termos de Uso</a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-12">
                <a class="" href="politica.php">Política de Privacidade</a>
             </div>
          </div>

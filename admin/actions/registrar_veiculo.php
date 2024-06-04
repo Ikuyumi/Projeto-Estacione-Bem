@@ -20,8 +20,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $v->observacoes = strip_tags($_POST['observacoes']);
 
      // Verificar por dados inválidos:
-        if(strlen($v->placa) !=7 || $v->celular == ""){
-          header('Location: ../index.php');
+        if(strlen($v->placa) !=7 || $v->id_tipo == "" || $v->convenio == ""){
+          header('Location: ../index.php?falha=registroveiculo');
           
             die();
         }

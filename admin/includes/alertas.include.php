@@ -11,9 +11,9 @@ $alertas_sucesso = [
 $alertas_falha = [
     "cadastrousuario" => "Falha ao cadastrar. Verifique as informações digitadas.",
     "falhalogin" => "Usuário ou senha inválidos.",
-    "editarusuario" => "Erro, verifique as informações digitadas.",
-    "editarveiculo" => "Erro, verifique as informações digitadas.",
-    "registroveiculo" => "Falha ao registrar, verifique as informações novamente.",
+    "editarusuario" => "Erro! Verifique as informações digitadas.",
+    "editarveiculo" => "Erro! Verifique as informações digitadas.",
+    "registroveiculo" => "Falha ao registrar. Verifique as informações.",
     "removerveiculo" => "Ocorreu um erro, tente novamente."
 ];
 
