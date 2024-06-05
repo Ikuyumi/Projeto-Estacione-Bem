@@ -46,11 +46,6 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
     #Titulo {
         color: rgb(202, 67, 13);
-        
-    }
-
-    .border{
-        border-radius: 10px;
     }
 
 
@@ -67,97 +62,105 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
 <body>
     <div class="row">
-        <div class="col-md-12 col-xs-6">
-            <!-- MENU LATERAL -->
-            <nav class="navbar navbar-dark bg-dark ">
-                <div class="container-fluid">
-                    <a class="navbar-brand fs-2 fw-bold" href="#" id="Titulo">Estacione Bem</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-                        <div class="offcanvas-header">
-                            <h3 class="offcanvas-title" id="Titulo">Estacione Bem</h3>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
+        <!-- MENU LATERAL -->
 
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 nav-pills">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link text-white " aria-current="page" id="Painel">
-                                        <svg class="bi pe-none me-2" width="16" height="16">
-                                            <use xlink:href="#home"></use>
-                                        </svg>
-                                        Painel
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" id="RegistroEntrada" class="nav-link text-white">
-                                        <svg class="bi pe-none me-2 " width="16" height="16">
-                                            <use xlink:href="#entrada"></use>
-                                        </svg>
-                                        Registro de entrada
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" id="MovimentacoesDoDia" class="nav-link text-white">
-                                        <svg class="bi pe-none me-2" width="16" height="16">
-                                            <use xlink:href="#movimentacoes"></use>
-                                        </svg>
-                                        Movimentações
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" id="Mensalistas" class="nav-link text-white">
-                                        <svg class="bi pe-none me-2" width="16" height="16">
-                                            <use xlink:href="#mensalistas"></use>
-                                        </svg>
-                                        Mensalistas
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" id="HistoricoFinanceiro" class="nav-link text-white">
-                                        <svg class="bi pe-none me-2" width="16" height="16">
-                                            <use xlink:href="#HistóricoFinanceiro"></use>
-                                        </svg>
-                                        Histórico financeiro
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" id="ControleDeVagas" class="nav-link text-white">
-                                        <svg class="bi pe-none me-2" width="16" height="16">
-                                            <use xlink:href="#ControleDeVagas"></use>
-                                        </svg>
-                                        Controle de vagas
-                                    </a>
-                                </li>
-                                <hr>
-                            </ul>
-                        
-                            <div class="dropdown p-4 ">
-                                
-                                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
-                                    <strong><?= ($PrimeiroNome[0]) ?></strong>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</a></li>
-                                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar perfil</a></li>
-                                    <!-- <li><a class="dropdown-item" href="#">Contrato</a></li> -->
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="actions/sair.php">Sair</a></li>
-                                </ul>
 
-                            </div>
-                        </div>
-                    </div>
-            </nav>
+        <div class="col-md-3 col-lg-2 col-sm-6 bg-dark vh-100 p-2 menuLateral">
+
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="#" class="text-white text-decoration-none">
+                <svg class="bi pe-none me-2 " width="25" height="45">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4 fw-bold" id="Titulo">Estacione Bem</span>
+            </a>
+
+            <ul class="nav nav-pills " style="display: block;">
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white " aria-current="page" id="Painel">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                        Painel
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="RegistroEntrada" class="nav-link text-white">
+                        <svg class="bi pe-none me-2 " width="16" height="16">
+                            <use xlink:href="#entrada"></use>
+                        </svg>
+                        Registro de entrada
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="MovimentacoesDoDia" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#movimentacoes"></use>
+                        </svg>
+                        Movimentações
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="Mensalistas" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#mensalistas"></use>
+                        </svg>
+                        Mensalistas
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="HistoricoFinanceiro" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#HistóricoFinanceiro"></use>
+                        </svg>
+                        Histórico financeiro
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="ControleDeVagas" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#ControleDeVagas"></use>
+                        </svg>
+                        Controle de vagas
+                    </a>
+                </li>
+                <hr>
+            </ul>
+            <hr>
+            <div class="dropdown p-4 ">
+                <hr>
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong><?= ($PrimeiroNome[0]) ?></strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</a></li>
+                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar perfil</a></li>
+                    <!-- <li><a class="dropdown-item" href="#">Contrato</a></li> -->
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="actions/sair.php">Sair</a></li>
+                </ul>
+
+
+
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-sm-4">
+
 
             <!-- PAINEL -->
-            <div class="row m-4 justify-content-center ">
-                <div id="painel" class="col-md-11 col-sm-12 m-3 border">
+            <div class="row">
+                <div id="painel" class="col-md-7 col-sm-12 m-2 border">
                     <form class="m-3" action="">
                         <h2 class="mb-4 fw-bolder">Posição atual</h2>
                         <hr>
@@ -187,9 +190,9 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
                         </table>
                     </form>
                 </div>
-           
+            </div>
             <!-- REGISTRO DE ENTRADA -->
-            <div id="entrada" class="col-md-11 col-sm-11 container-md m-2 border">
+            <div id="entrada" class="col-md-10 col-sm-10 container-md m-2 border">
                 <form class="m-3" action="actions/registrar_veiculo.php" method="POST">
 
                     <h2 class="mb-4 fw-bolder">Registrar entrada</h2>
@@ -249,7 +252,7 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
             </div>
             <!-- MOVIMENTAÇÕES -->
             <div id="movimentacoes" class="row">
-                <div class="col-md-11 container-md m-2 p-3 border">
+                <div class="col-md-5 container-md m-2 p-3 border">
                     <form class="row" action="">
                         <hr>
                         <h2 class="mb-4 fw-bolder">Movimentações</h2>
@@ -299,7 +302,7 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
                     </form>
                 </div>
                 <!-- HISTÓRICO DE MOVIMENTAÇÕES -->
-                <div class="col-md-11 container-md m-2 p-3 border">
+                <div class="col-md-6 container-md m-2 p-3 border">
                     <form class="row" action="">
                         <hr>
                         <h2 class="mb-4 fw-bolder">Histórico Movimentações</h2>
@@ -361,7 +364,7 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
                 </div>
             </div>
             <!-- Mensalistas -->
-            <div id="mensalistas" class="col-md-11 container-md m-2 p-3 border">
+            <div id="mensalistas" class="col-md-6 container-md m-2 p-3">
                 <form class="row" action="">
                     <hr>
                     <h2 class="mb-4 fw-bolder">Mensalistas</h2>
@@ -420,7 +423,7 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
             <!-- CONTROLE DE VAGAS -->
             <div id="controleDeVagas" class="row">
-                <div class="col-md-11 container-md m-2 p-3">
+                <div class="col-md-5 container-md m-2 p-3">
                     <form class="row" action="">
                         <div class="card p-4">
                             <h2 class="mt-3 ">Controle de vagas <br> </h2>
@@ -446,7 +449,6 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
             </div>
             <!-- Histórico financeiro (TESTE) -->
             <div class=" col-10 m-o " id="relatorio" style="width:100%;max-width:700px"></div>
-            </div>
         </div>
 
     </div>

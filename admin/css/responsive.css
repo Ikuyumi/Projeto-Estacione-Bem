@@ -1,0 +1,36 @@
+/* @media (max-width: 576px) {
+
+    .navigation.navbar-dark .navbar-toggler-icon {
+        background: url(../images/menu_icon.png);
+        background-repeat: no-repeat;
+    }
+    
+    .navigation.navbar {
+        float: right;
+        display: inherit !important;
+        padding: 0;
+        width: 100%;
+        margin-top: -33px;
+    }
+
+    .navigation .navbar-collapse {
+        background: #f5821f;
+        padding: 20px;
+        margin-top: 62px;
+        position: absolute;
+        width: 100%;
+        margin-right: 20px;
+        z-index: 999;
+        border-radius: 3px;
+    }
+
+    .navigation.navbar-dark .navbar-nav .nav-link {
+        padding: 10px 0;
+    }
+
+    .navigation.navbar-dark .navbar-toggler {
+        float: right;
+        border: inherit;
+        padding: 0;
+    }
+} */

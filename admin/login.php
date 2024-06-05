@@ -119,7 +119,8 @@
                 color: rgb(229, 229, 229);
             }
 
-            button a:hover, a.cadastrar:hover {
+            button a:hover,
+            a.cadastrar:hover {
                 padding: 18px 135px;
                 border-radius: 5px;
                 background-color: #e78229;
@@ -167,7 +168,6 @@
                 text-align: center;
                 text-decoration: none;
             }
-            
         </style>
     </head>
 
@@ -196,22 +196,22 @@
 </body>
 
 <script>
-        // Alternar entre formulários login x cadastro:
-        $("#btnCadastroToggle").click(function() {
-            $("#formLogin").hide();
-            $("#formCadastro").fadeIn();
-            $("#titulo").text('Cadastro');
-        });
-        $("#btnLoginToggle").click(function() {
-            $("#formCadastro").hide();
-            $("#formLogin").fadeIn();
-            $("#titulo").text('Login');
-        });
-    </script>
-    <?php 
-    
-    include_once('includes/alertas.include.php');
-    
-    ?>
+    // Alternar entre formulários login x cadastro:
+    $("#btnCadastroToggle").click(function() {
+        $("#formLogin").hide();
+        $("#formCadastro").fadeIn();
+        $("#titulo").text('Cadastro');
+    });
+    $("#btnLoginToggle").click(function() {
+        $("#formCadastro").hide();
+        $("#formLogin").fadeIn();
+        $("#titulo").text('Login');
+    });
+</script>
+<?php
+
+include_once('includes/alertas.include.php');
+
+?>
 
 </html>
