@@ -169,6 +169,18 @@
                 </div>
             </div>
 
+            <div class="row rodape-1 pb-3 pt-5 border-bottom ">
+            <div class="col-md-4 col-12">
+               <a class="" href="faleconosco.php">Fale Conosco</a>
+            </div>
+            <div class="col-md-4 col-12">
+               <a class="" href="politica.php">Termos de Uso</a>
+            </div>
+            <div class="col-md-4 col-12">
+               <a class="" href="politica.php">Política de Privacidade</a>
+            </div>
+         </div>
+
             <div class="copyright">
                 <div class="container">
                     <div class="row">

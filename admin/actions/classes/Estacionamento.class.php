@@ -11,9 +11,20 @@ class Estacionamento{
     public $id_usuario;
     public $id_tipo;
     public $observacoes;
+    public $pago;
 
     public function Listar(){
         $sql = "SELECT * FROM estacionamento";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
+    }
+
+    public function ListarMensalistas(){
+        $sql = "SELECT * FROM estacionamento WHERE convenio=1";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();

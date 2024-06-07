@@ -25,8 +25,7 @@
    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
    <!-- Tweaks for older IEs-->
    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
-      media="screen">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -51,8 +50,7 @@
                </div>
                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
                   <nav class="navigation navbar navbar-expand-md navbar-dark ">
-                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
-                        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                      </button>
                      <div class="collapse navbar-collapse" id="navbarsExample04">
@@ -85,7 +83,7 @@
                <div class="text-bg">
                   <div class="padding_lert">
                      <h1>Sistema para seu Estacionamento <br>Privado</h1>
-                     <a href="Javascript:void(0)">Saiba Mais</a>
+                     <a href="#saibamais" class="botao">Saiba Mais</a>
                   </div>
                </div>
             </div>
@@ -125,7 +123,7 @@
       <div class="container">
          <div class="row d_flex">
             <div class="col-md-7 col-12">
-               <div class="titlepage">
+               <div class="titlepage" id="saibamais">
                   <h2>Confira também <br>no celular</h2>
                   <span>O site também está disponível no celular, com a opção de tirar foto do veículo sendo mais
                      prática, caso não consiga registrá-la no computador. Confira!
@@ -149,9 +147,9 @@
             <div class="col-md-12">
                <div class="titlepage">
                   <h2>Confira mais do nosso trabalho</h2>
-                  <span>It is a long established fact that a reader will be distracted by the readable content of a page
-                     when looking at its layout. The point of using Lorem Ipsum is that it has a istribution of letters,
-                     content here', making it look like readable English. Many desktop publishing packages </span>
+                  <span>
+                     Abaixo, são apresentadas imagens ilustrativas juntamente com exemplos concretos do painel administrativo,
+                     destinados a proporcionar uma compreensão detalhada e abrangente do funcionamento e da operacionalidade do projeto em questão.</span>
                </div>
             </div>
          </div>
@@ -192,10 +190,9 @@
                </div>
                <div class="col-md-7 col-12">
                   <div class="multipurpose">
-                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry. </p>
-                     <br>
+                     <p>Curtiu o nosso trabalho? Que tal mandar um feedback? Basta clicar em "Fale Conosco" e nos contar o que achou. 
+                        Estamos sempre abertos a críticas e sugestões!
+                     </p>
 
                   </div>
                </div>
@@ -204,21 +201,16 @@
          </div>
 
          <div class="row rodape-1 pb-3 pt-5 border-bottom ">
-            <div class="col-md-3 col-12">
-               <a class="" href="#">Fale Conosco</a>
+            <div class="col-md-4 col-12">
+               <a class="" href="faleconosco.php">Fale Conosco</a>
             </div>
-            <div class="col-md-3 col-12">
-               <a class="" href="../admin/login.php">Trabalhe Conosco</a>
-            </div>
-            <div class="col-md-3 col-12">
+            <div class="col-md-4 col-12">
                <a class="" href="politica.php">Termos de Uso</a>
             </div>
-            <div class="col-md-3 col-12">
+            <div class="col-md-4 col-12">
                <a class="" href="politica.php">Política de Privacidade</a>
             </div>
          </div>
-
-
 
          <div class="copyright">
             <div class="container">

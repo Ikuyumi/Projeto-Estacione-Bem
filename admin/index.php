@@ -27,6 +27,11 @@ $listserv = $serv->Listar();
 //PEGAR PRIMEIRO NÚMERO
 $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
+//
+$e = new Estacionamento();
+$list_mensalistas = $e->ListarMensalistas();
+
+
 ?>
 
 <html>
@@ -46,10 +51,10 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
     #Titulo {
         color: rgb(202, 67, 13);
-        
+
     }
 
-    .border{
+    .border {
         border-radius: 10px;
     }
 
@@ -69,6 +74,7 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
     <div class="row">
         <div class="col-md-12 col-xs-6">
             <!-- MENU LATERAL -->
+
             <nav class="navbar navbar-dark bg-dark ">
                 <div class="container-fluid">
                     <a class="navbar-brand fs-2 fw-bold" href="#" id="Titulo">Estacione Bem</a>
@@ -133,9 +139,9 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
                                 </li>
                                 <hr>
                             </ul>
-                        
+
                             <div class="dropdown p-4 ">
-                                
+
                                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
                                     <strong><?= ($PrimeiroNome[0]) ?></strong>
@@ -157,7 +163,7 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
             <!-- PAINEL -->
             <div class="row m-4 justify-content-center ">
-                <div id="painel" class="col-md-11 col-sm-12 m-3 border">
+                <div id="painel" class="col-md-9 col-sm-9 m-3 border">
                     <form class="m-3" action="">
                         <h2 class="mb-4 fw-bolder">Posição atual</h2>
                         <hr>
@@ -187,265 +193,256 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
                         </table>
                     </form>
                 </div>
-           
-            <!-- REGISTRO DE ENTRADA -->
-            <div id="entrada" class="col-md-11 col-sm-11 container-md m-2 border">
-                <form class="m-3" action="actions/registrar_veiculo.php" method="POST">
 
-                    <h2 class="mb-4 fw-bolder">Registrar entrada</h2>
-                    <hr>
-                    <p class="mb-4 fs-5 opacity-75">Dados do Veículo</p>
-                    <div class="row mb-3">
-                        <div class="col-sm-3 col-md-3">
-                            <label for="placa" class="form-label fw-bolder ">Placa</label>
-                        </div>
-                        <div class="col-md-4 col-sm-3">
-                            <input type="text" class="form-control" id="placa" name="placa" placeholder="AAA-1A11">
-                        </div>
-                    </div>
+                <!-- REGISTRO DE ENTRADA -->
+                <div id="entrada" class="col-md-9 col-sm-9 container-md m-2 border">
+                    <form class="m-3" action="actions/registrar_veiculo.php" method="POST">
 
-                    <br>
-                    <div class="row mb-3">
-                        <div class="col-md-4 col-sm-3">
-                            <label for="tipo" class="form-label fw-bolder">Tipo de veículo</label>
-                        </div>
-                        <div class="col-md-4 col-sm-3">
-                            <select class="form-select" aria-label="Default select example" id="id_tipo" name="id_tipo">
-                                <option selected>Selecione</option>
-                                <?php foreach ($tipos as $_listartipos) { ?>
-                                    <option value="<?= $_listartipos['id']; ?>"><?= $_listartipos['tipo']; ?></option>
-                                <?php  } ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row fw-bolder">
-                        <div class="col-md-3 col-sm-3 mb-2  ">
-                            <label for="tipoDeConvenio" class="form-label ">Tipo De Convênio:</label>
-                        </div>
-                        <div class="col mb-2">
-                            <?php foreach ($listserv as $convenio) { ?>
-                                <input class="form-check-input" type="radio" name="convenio" id="convenio" value="<?= $convenio['id']; ?>">
-                                <label class="form-check-label" for="convenio">
-                                    <?= $convenio['servico']; ?>
-                                </label>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3">&nbsp;</div>
-                        <div class=" col-md-2 m-3 form-check">
-                            <input type="checkbox" id="avarias" class="form-check-input" onclick="MostrarObservacao()">
-                            <label class="form-check- fw-bolder" for="observacoes">Possui avarias</label>
-                            <!-- Abrir caixa de observações -->
-                            <div class="form-floating" id="observacoes" style="display:none">
-                                <textarea class="form-control" placeholder="Digite as observações/avarias do seu veículo." id="observacoes" style="height: 50px"></textarea>
-                                <label for="observacoes" name="observacoes">Avarias</label>
+                        <h2 class="mb-4 fw-bolder">Registrar entrada</h2>
+                        <p class="mb-4 fs-5 opacity-75">Dados do Veículo</p>
+                        <div class="row mb-3">
+                            <div class="col-sm-3 col-md-3">
+                                <label for="placa" class="form-label fw-bolder">Placa</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <input type="text" class="form-control" id="placa" name="placa" placeholder="AAA-1A11">
                             </div>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary m-2">Registrar</button>
-                </form>
-            </div>
-            <!-- MOVIMENTAÇÕES -->
-            <div id="movimentacoes" class="row">
-                <div class="col-md-11 container-md m-2 p-3 border">
-                    <form class="row" action="">
-                        <hr>
-                        <h2 class="mb-4 fw-bolder">Movimentações</h2>
-                        <p class="mb-4 fs-6 opacity-75 "><span class="fw-bolder">Período</span>
-                            <br>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Aberto
-                            </label>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Cancelado
-                            </label>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Fechado
-                            </label>
-                        </p>
+                        <div class="row mb-3">
+                            <div class="col-md-3 col-sm-3">
+                                <label for="tipo" class="form-label fw-bolder">Tipo de veículo</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <select class="form-select" aria-label="Default select example" id="id_tipo" name="id_tipo">
+                                    <option selected>Selecione</option>
+                                    <?php foreach ($tipos as $_listartipos) { ?>
+                                        <option value="<?= $_listartipos['id']; ?>"><?= $_listartipos['tipo']; ?></option>
+                                    <?php  } ?>
+                                </select>
+                            </div>
+                        </div>
 
-                        <table class="table">
-                            <tr>
-                                <th scope="col">STATUS</th>
-
-                                <td scope="col">Aberto - 10/05/2024 19:30</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">AVULSO</th>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">MENSALISTA</th>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">ENTRADAS</th>
-                                <td>R$ 0,00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"> A RECEBER</th>
-                                <td>R$ 0,00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"> CAIXA</th>
-                                <td>R$ 0,00</td>
-                            </tr>
-                        </table>
+                        <div class="row fw-bolder">
+                            <div class="col-md-3 col-sm-3 mb-2">
+                                <label for="tipoDeConvenio" class="form-label ">Tipo De Convênio:</label>
+                            </div>
+                            <div class="col mb-2">
+                                <?php foreach ($listserv as $convenio) { ?>
+                                    <input class="form-check-input" type="radio" name="convenio" id="convenio" value="<?= $convenio['id']; ?>">
+                                    <label class="form-check-label" for="convenio">
+                                        <?= $convenio['servico']; ?>
+                                    </label>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-md-3 col-sm-3">&nbsp;</div> -->
+                            <div class=" col-md-6 m-3 form-check">
+                                <input type="checkbox" id="avarias" class="form-check-input" onclick="MostrarObservacao()">
+                                <label class="form-check- fw-bolder" for="observacoes">Possui avarias</label>
+                                <!-- Abrir caixa de observações -->
+                                <div class="form-floating" id="observacoes" style="display:none">
+                                    <textarea class="form-control" placeholder="Digite as observações/avarias do seu veículo." id="observacoes" style="height: 100px"></textarea>
+                                    <label for="observacoes" name="observacoes">Avarias</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary m-2">Registrar</button>
                     </form>
                 </div>
-                <!-- HISTÓRICO DE MOVIMENTAÇÕES -->
-                <div class="col-md-11 container-md m-2 p-3 border">
+                <!-- MOVIMENTAÇÕES -->
+                <div id="movimentacoes" class="row justify-content-center">
+                    <div class="col-md-9 col-sm-9 container-md m-2 p-3 border">
+                        <form class="row" action="">
+                            <hr>
+                            <h2 class="mb-4 fw-bolder">Movimentações</h2>
+                            <p class="mb-4 fs-6 opacity-75 "><span class="fw-bolder">Período</span>
+                                <br>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Aberto
+                                </label>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Cancelado
+                                </label>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Fechado
+                                </label>
+                            </p>
+
+                            <table class="table">
+                                <tr>
+                                    <th scope="col">STATUS</th>
+
+                                    <td scope="col">Aberto - 10/05/2024 19:30</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">AVULSO</th>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">MENSALISTA</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">ENTRADAS</th>
+                                    <td>R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"> A RECEBER</th>
+                                    <td>R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"> CAIXA</th>
+                                    <td>R$ 0,00</td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <!-- HISTÓRICO DE MOVIMENTAÇÕES -->
+                    <div class="col-md-9 col-sm-9 container-md m-2 p-3 border">
+                        <form class="row" action="">
+                            <hr>
+                            <h2 class="mb-4 fw-bolder">Histórico Movimentações</h2>
+                            <p class="mb-4 fs-6 opacity-75 fw-bold "><span class="fw-bolder">Período</span>
+                                <br>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Dia
+                                </label>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Mês
+                                </label>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Ano
+                                </label>
+                            </p>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ticket</th>
+                                        <th scope="col">Placa</th>
+                                        <th scope="col">Convênio</th>
+                                        <th scope="col">Entrada</th>
+                                        <th scope="col">Saída</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>CGW0I33</td>
+                                        <td>Avulso</td>
+                                        <td>24/04/2024 21:38</td>
+                                        <td>-</td>
+                                        <td>R$ 5.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>CGW0I33</td>
+                                        <td>Avulso</td>
+                                        <td>24/04/2024 21:38</td>
+                                        <td>-</td>
+                                        <td>R$ 5.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>CGW0I33</td>
+                                        <td>Avulso</td>
+                                        <td>24/04/2024 21:38</td>
+                                        <td>-</td>
+                                        <td>R$ 5.000,00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <!-- Mensalistas -->
+                <div id="mensalistas" class="col-md-9 col-sm-9 container-md m-2 p-3 border">
                     <form class="row" action="">
                         <hr>
-                        <h2 class="mb-4 fw-bolder">Histórico Movimentações</h2>
-                        <p class="mb-4 fs-6 opacity-75 fw-bold "><span class="fw-bolder">Período</span>
+                        <h2 class="mb-4 fw-bolder">Mensalistas</h2>
+                        <p class="mb-4 fs-6 opacity-75 fw-bold "><span class="fw-bolder">Situação</span>
                             <br>
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
-                                Dia
+                                Ativo
                             </label>
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
-                                Mês
-                            </label>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Ano
+                                Inativo
                             </label>
                         </p>
 
                         <table class="table">
+                           
                             <thead>
                                 <tr>
                                     <th scope="col">Ticket</th>
                                     <th scope="col">Placa</th>
-                                    <th scope="col">Convênio</th>
-                                    <th scope="col">Entrada</th>
-                                    <th scope="col">Saída</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">Última entrada</th>
+                                    <th scope="col">Última saída</th>
+                                    <th scope="col">Mensalidade</th>
+
                                 </tr>
                             </thead>
+                          
                             <tbody>
+                            <?php foreach ($list_mensalistas as $mens) { ?>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>CGW0I33</td>
-                                    <td>Avulso</td>
-                                    <td>24/04/2024 21:38</td>
-                                    <td>-</td>
-                                    <td>R$ 5.000,00</td>
+                                    <th scope="row"><?= $mens['id'];?></th>
+                                    <td><?= $mens['placa'];?></td>
+                                    <td><?= $mens['data_entrada'];?></td>
+                                    <td><?= $mens['data_saida'];?></td>
+                                    <td><?php if(($mens['pago'] === 1)){
+                                        echo("Pagametno em dia");
+                                    }else{
+                                        echo("Pagamento pendente");
+                                    }
+                                    ?></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>CGW0I33</td>
-                                    <td>Avulso</td>
-                                    <td>24/04/2024 21:38</td>
-                                    <td>-</td>
-                                    <td>R$ 5.000,00</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>CGW0I33</td>
-                                    <td>Avulso</td>
-                                    <td>24/04/2024 21:38</td>
-                                    <td>-</td>
-                                    <td>R$ 5.000,00</td>
-                                </tr>
+                                <?php } ?>
+                                
                             </tbody>
+                            
                         </table>
                     </form>
                 </div>
-            </div>
-            <!-- Mensalistas -->
-            <div id="mensalistas" class="col-md-11 container-md m-2 p-3 border">
-                <form class="row" action="">
-                    <hr>
-                    <h2 class="mb-4 fw-bolder">Mensalistas</h2>
-                    <p class="mb-4 fs-6 opacity-75 fw-bold "><span class="fw-bolder">Situação</span>
-                        <br>
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Ativo
-                        </label>
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Inativo
-                        </label>
-                    </p>
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Ticket</th>
-                                <th scope="col">Placa</th>
-                                <th scope="col">Última entrada</th>
-                                <th scope="col">Última saída</th>
-                                <th scope="col">Mensalidade</th>
+                <!-- CONTROLE DE VAGAS -->
+                <div id="controleDeVagas" class="row justify-content-center">
+                    <div class="col-md-6 container-md m-2 p-3">
+                        <form class="row" action="">
+                            <div class="card p-4">
+                                <h2 class="mt-3 ">Controle de vagas <br> </h2>
+                                <hr>
+                                <table class="table mt-3">
+                                    <tr>
+                                        <th scope="col">Total de vagas</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>CGW0I33</td>
-                                <td>22/07/2024 21:38</td>
-                                <td>24/04/2024 21:38</td>
-                                <td>Em dia</td>
-
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>CGW0I33</td>
-                                <td>22/07/2024 21:38</td>
-                                <td>24/04/2024 21:38</td>
-                                <td>Em dia</td>
-
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>CGW0I33</td>
-                                <td>22/07/2024 21:38</td>
-                                <td>24/04/2024 21:38</td>
-                                <td>Em dia</td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-
-            <!-- CONTROLE DE VAGAS -->
-            <div id="controleDeVagas" class="row">
-                <div class="col-md-11 container-md m-2 p-3">
-                    <form class="row" action="">
-                        <div class="card p-4">
-                            <h2 class="mt-3 ">Controle de vagas <br> </h2>
-                            <hr>
-                            <table class="table mt-3">
-                                <tr>
-                                    <th scope="col">Total de vagas</th>
-
-                                    <td scope="col">20</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Vagas livres</th>
-                                    <td>19</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Vagas ocupadas</th>
-                                    <td>1</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </form>
+                                        <td scope="col">20</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Vagas livres</th>
+                                        <td>19</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Vagas ocupadas</th>
+                                        <td>1</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <!-- Histórico financeiro (TESTE) -->
-            <div class=" col-10 m-o " id="relatorio" style="width:100%;max-width:700px"></div>
+                <!-- Histórico financeiro (TESTE) -->
+                <div class="col-sm-9 col-md-9 m-o justify-content-center" id="relatorio" style="width:100%;max-width:700px"></div>
             </div>
         </div>
 
