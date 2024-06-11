@@ -381,7 +381,7 @@ $list_mensalistas = $e->ListarMensalistas();
                         </p>
 
                         <table class="table">
-                           
+
                             <thead>
                                 <tr>
                                     <th scope="col">Ticket</th>
@@ -392,25 +392,25 @@ $list_mensalistas = $e->ListarMensalistas();
 
                                 </tr>
                             </thead>
-                          
+
                             <tbody>
-                            <?php foreach ($list_mensalistas as $mens) { ?>
-                                <tr>
-                                    <th scope="row"><?= $mens['id'];?></th>
-                                    <td><?= $mens['placa'];?></td>
-                                    <td><?= $mens['data_entrada'];?></td>
-                                    <td><?= $mens['data_saida'];?></td>
-                                    <td><?php if(($mens['pago'] === 1)){
-                                        echo("Pagametno em dia");
-                                    }else{
-                                        echo("Pagamento pendente");
-                                    }
-                                    ?></td>
-                                </tr>
+                                <?php foreach ($list_mensalistas as $mens) { ?>
+                                    <tr>
+                                        <th scope="row"><?= $mens['id']; ?></th>
+                                        <td><?= $mens['placa']; ?></td>
+                                        <td><?= $mens['data_entrada']; ?></td>
+                                        <td><?= $mens['data_saida']; ?></td>
+                                        <td><?php if (($mens['pago'] === 1)) {
+                                                echo ("Pagametno em dia");
+                                            } else {
+                                                echo ("Pagamento pendente");
+                                            }
+                                            ?></td>
+                                    </tr>
                                 <?php } ?>
-                                
+
                             </tbody>
-                            
+
                         </table>
                     </form>
                 </div>
@@ -436,9 +436,44 @@ $list_mensalistas = $e->ListarMensalistas();
                                         <th scope="row">Vagas ocupadas</th>
                                         <td>1</td>
                                     </tr>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVagas">
+                                        Editar
+                                    </button>
                                 </table>
                             </div>
                         </form>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalVagas" tabindex="-1" aria-labelledby="modalVagasLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="modalVagasLabel">Editar Vagas</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table mt-3">
+                                        <tr>
+                                            <th scope="col">Total de vagas</th>
+                                            <td> <input type="text" id="totalvagas" name="totalvagas"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Vagas livres</th>
+                                            <td> <input type="text" id="vagaslivres" name="vagaslivres"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Vagas ocupadas</th>
+                                            <td> <input type="text" id="vagasocupadas" name="vagasocupadas"> </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Histórico financeiro (TESTE) -->

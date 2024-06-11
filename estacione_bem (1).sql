@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30/05/2024 às 02:59
+-- Tempo de geração: 07/06/2024 às 01:01
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -53,7 +53,8 @@ INSERT INTO `estacionamento` (`id`, `placa`, `celular`, `data_entrada`, `data_sa
 (10, 'mmm1m12', '12558649332', '2024-05-30 04:21:25', NULL, 3, 4, 5, '', 0),
 (11, 'CGW0I33', '12558649332', '2024-05-30 04:22:27', NULL, 4, 4, 5, '', 0),
 (12, 'bbb1b11', '12558649332', '2024-05-30 04:31:44', NULL, 3, 4, 3, '', 0),
-(13, 'cgw0i33', '12558649332', '2024-05-30 05:40:19', NULL, 3, 4, 2, '', 0);
+(13, 'cgw0i33', '12558649332', '2024-05-30 05:40:19', NULL, 3, 4, 2, '', 0),
+(14, 'QWS5M91', '12558649332', '2024-06-04 03:01:49', NULL, 3, 4, 5, '', 0);
 
 -- --------------------------------------------------------
 
@@ -206,7 +207,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `estacionamento`
 --
 ALTER TABLE `estacionamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `fila_de_servicos`
@@ -236,7 +237,7 @@ ALTER TABLE `tipo`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restrições para tabelas despejadas
