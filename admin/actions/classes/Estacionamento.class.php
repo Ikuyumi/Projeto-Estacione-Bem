@@ -74,5 +74,8 @@ class Estacionamento{
         return $comando->rowCount();
     }
 
+    public function RelatorioVagas(){
+        
+    }
 }
 ?>

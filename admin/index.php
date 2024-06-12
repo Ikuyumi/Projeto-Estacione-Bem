@@ -6,6 +6,7 @@ require_once('actions/classes/Registro.class.php');
 require_once('actions/classes/Tipo.class.php');
 require_once('actions/classes/Servico.class.php');
 require_once('actions/classes/Usuario.class.php');
+require_once('actions/classes/Configuracao.class.php');
 
 session_start();
 // Verificar se a sessão não existe:
@@ -31,7 +32,8 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 $e = new Estacionamento();
 $list_mensalistas = $e->ListarMensalistas();
 
-
+$c = new Configuracao();
+$config = $c->Listar();
 ?>
 
 <html>
@@ -134,7 +136,7 @@ $list_mensalistas = $e->ListarMensalistas();
                                         <svg class="bi pe-none me-2" width="16" height="16">
                                             <use xlink:href="#ControleDeVagas"></use>
                                         </svg>
-                                        Controle de vagas
+                                        Configurações
                                     </a>
                                 </li>
                                 <hr>
@@ -401,7 +403,7 @@ $list_mensalistas = $e->ListarMensalistas();
                                         <td><?= $mens['data_entrada']; ?></td>
                                         <td><?= $mens['data_saida']; ?></td>
                                         <td><?php if (($mens['pago'] === 1)) {
-                                                echo ("Pagametno em dia");
+                                                echo ("Pagamento em dia");
                                             } else {
                                                 echo ("Pagamento pendente");
                                             }
@@ -415,67 +417,60 @@ $list_mensalistas = $e->ListarMensalistas();
                     </form>
                 </div>
 
-                <!-- CONTROLE DE VAGAS -->
+                <!-- CONFIGURAÇÕES -->
                 <div id="controleDeVagas" class="row justify-content-center">
                     <div class="col-md-6 container-md m-2 p-3">
                         <form class="row" action="">
                             <div class="card p-4">
-                                <h2 class="mt-3 ">Controle de vagas <br> </h2>
+                                <h2 class="mt-3 ">Configurações<br> </h2>
                                 <hr>
                                 <table class="table mt-3">
-                                    <tr>
-                                        <th scope="col">Total de vagas</th>
-
-                                        <td scope="col">20</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Vagas livres</th>
-                                        <td>19</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Vagas ocupadas</th>
-                                        <td>1</td>
-                                    </tr>
+                                    <?php foreach ($config as $listconfig) { ?>
+                                        <tr>
+                                            <td><?=$listconfig['nome_configuracao']; ?></td>
+                                            <td><?=$listconfig['valor']; ?></td>
+                                        </tr>
+                                    <?php } ?>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVagas">
                                         Editar
                                     </button>
                                 </table>
                             </div>
-                        </form>
-                    </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="modalVagas" tabindex="-1" aria-labelledby="modalVagasLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modalVagasLabel">Editar Vagas</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table mt-3">
-                                        <tr>
-                                            <th scope="col">Total de vagas</th>
-                                            <td> <input type="text" id="totalvagas" name="totalvagas"> </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Vagas livres</th>
-                                            <td> <input type="text" id="vagaslivres" name="vagaslivres"> </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Vagas ocupadas</th>
-                                            <td> <input type="text" id="vagasocupadas" name="vagasocupadas"> </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalVagas" tabindex="-1" aria-labelledby="modalVagasLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="modalVagasLabel">Editar Vagas</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table mt-3">
+                                                <tr>
+                                                    <th scope="col">Total de vagas</th>
+                                                    <td> <input type="text" id="totalvagas" name="totalvagas"> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Vagas livres</th>
+                                                    <td> <input type="text" id="vagaslivres" name="vagaslivres"> </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Vagas ocupadas</th>
+                                                    <td> <input type="text" id="vagasocupadas" name="vagasocupadas"> </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
+                    </form>
                 </div>
+
                 <!-- Histórico financeiro (TESTE) -->
                 <div class="col-sm-9 col-md-9 m-o justify-content-center" id="relatorio" style="width:100%;max-width:700px"></div>
             </div>
