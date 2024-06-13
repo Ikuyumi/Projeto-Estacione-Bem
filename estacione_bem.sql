@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07/06/2024 às 01:01
+-- Tempo de geração: 13/06/2024 às 02:33
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `estacione_bem`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `configuracoes`
+--
+
+CREATE TABLE `configuracoes` (
+  `id` int(11) NOT NULL,
+  `nome_configuracao` varchar(300) NOT NULL,
+  `valor` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `configuracoes`
+--
+
+INSERT INTO `configuracoes` (`id`, `nome_configuracao`, `valor`) VALUES
+(1, 'Nome do Estacionamento', 'Robson Park'),
+(2, 'Total de Vagas', '40'),
+(3, 'Versão', '1.0');
 
 -- --------------------------------------------------------
 
@@ -106,7 +127,6 @@ CREATE TABLE `servicos` (
 --
 
 INSERT INTO `servicos` (`id`, `servico`, `valor`) VALUES
-(2, 'Lavagem', 400),
 (3, 'Avulso', 300),
 (4, 'Mensal', 120);
 
@@ -159,6 +179,12 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `telefone`, `senha`) VALUES
 --
 
 --
+-- Índices de tabela `configuracoes`
+--
+ALTER TABLE `configuracoes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `estacionamento`
 --
 ALTER TABLE `estacionamento`
@@ -202,6 +228,12 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `configuracoes`
+--
+ALTER TABLE `configuracoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `estacionamento`

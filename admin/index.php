@@ -52,7 +52,7 @@ $config = $c->Listar();
     }
 
     #Titulo {
-        color: rgb(202, 67, 13);
+        color: #f5821f;
 
     }
 
@@ -69,6 +69,30 @@ $config = $c->Listar();
         background-color: rgb(202, 67, 13);
     }
 
+    .botao {
+        background-color: #f5821f;
+        border-color: f5821f;
+    }
+
+    .botao:hover {
+        background-color: black;
+        border-color: black;
+    }
+
+    .negrito {
+        font-weight: bold;
+    }
+
+    .footer {
+        margin-top: 60px;
+        background: #010000;
+        padding-top: 90px;
+        text-align: center;
+        color: white;
+        border: none;
+        box-sizing: unset;
+    }
+
     /* Teste */
 </style>
 
@@ -77,7 +101,7 @@ $config = $c->Listar();
         <div class="col-md-12 col-xs-6">
             <!-- MENU LATERAL -->
 
-            <nav class="navbar navbar-dark bg-dark ">
+            <nav class="navbar navbar-dark bg-black ">
                 <div class="container-fluid">
                     <a class="navbar-brand fs-2 fw-bold" href="#" id="Titulo">Estacione Bem</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -249,7 +273,7 @@ $config = $c->Listar();
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary m-2">Registrar</button>
+                        <button type="submit" class="btn btn-primary m-2 botao border">Registrar</button>
                     </form>
                 </div>
                 <!-- MOVIMENTAÇÕES -->
@@ -420,56 +444,68 @@ $config = $c->Listar();
                 <!-- CONFIGURAÇÕES -->
                 <div id="controleDeVagas" class="row justify-content-center">
                     <div class="col-md-6 container-md m-2 p-3">
-                        <form class="row" action="">
-                            <div class="card p-4">
-                                <h2 class="mt-3 ">Configurações<br> </h2>
-                                <hr>
-                                <table class="table mt-3">
-                                    <?php foreach ($config as $listconfig) { ?>
-                                        <tr>
-                                            <td><?=$listconfig['nome_configuracao']; ?></td>
-                                            <td><?=$listconfig['valor']; ?></td>
-                                        </tr>
-                                    <?php } ?>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVagas">
-                                        Editar
-                                    </button>
-                                </table>
-                            </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="modalVagas" tabindex="-1" aria-labelledby="modalVagasLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="modalVagasLabel">Editar Vagas</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="table mt-3">
-                                                <tr>
-                                                    <th scope="col">Total de vagas</th>
-                                                    <td> <input type="text" id="totalvagas" name="totalvagas"> </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Vagas livres</th>
-                                                    <td> <input type="text" id="vagaslivres" name="vagaslivres"> </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Vagas ocupadas</th>
-                                                    <td> <input type="text" id="vagasocupadas" name="vagasocupadas"> </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-                                        </div>
+                        <div class="card p-4">
+                            <h2 class="mt-3 negrito">Configurações<br> </h2>
+                            <hr>
+                            <table class="table mt-3">
+                                <?php foreach ($config as $listconfig) { ?>
+                                    <tr>
+                                        <td class="negrito"><?= $listconfig['nome_configuracao']; ?></td>
+                                        <td><?= $listconfig['valor']; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                <button type="button" class="btn btn-primary botao border" data-bs-toggle="modal" data-bs-target="#modalVagas">
+                                    Editar
+                                </button>
+                            </table>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalVagas" tabindex="-1" aria-labelledby="modalVagasLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modalVagasLabel">Editar Vagas</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table mt-3">
+                                            <tr>
+                                                <th scope="col">Total de vagas</th>
+                                                <td> <input type="text" id="totalvagas" name="totalvagas"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Vagas livres</th>
+                                                <td> <input type="text" id="vagaslivres" name="vagaslivres"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Vagas ocupadas</th>
+                                                <td> <input type="text" id="vagasocupadas" name="vagasocupadas"> </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary f5821f" data-bs-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary botao border">Salvar mudanças</button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
-                    </form>
                 </div>
+
+                <!-- FOOTER -->
+                    <!-- <div class="footer">
+                        <div class="copyright">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>Copyright 2024. Todos os Direitos Reservados</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
 
                 <!-- Histórico financeiro (TESTE) -->
                 <div class="col-sm-9 col-md-9 m-o justify-content-center" id="relatorio" style="width:100%;max-width:700px"></div>
@@ -494,7 +530,7 @@ $config = $c->Listar();
                             <span class="name mt-3"><?= $_SESSION['usuario']['nome']; ?></span>
                             <span class="idd"><?= $_SESSION['usuario']['email']; ?></span>
                             <div class="text mt-3"> <span>Administrador do Estacionamento<br> </div>
-                            <div class=" px-2 rounded mt-4 date "> <span class="join">Ingressou Maio, 2024</span> </div>
+                            <div class=" px-2 rounded mt-4 date "> <span class="join">Ingressou em Junho, 2024 ?></span> </div>
                         </div>
                     </div>
                 </div>
@@ -518,7 +554,7 @@ $config = $c->Listar();
                         <div class="image d-flex flex-column justify-content-center align-items-center">
                             <div class="d-flex flex-column align-items-center text-center p-1 "><img class="rounded-circle " width="150px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"><span class="font-weight-bold"><?= $_SESSION['usuario']['nome']; ?></span><span class="text-black-50"><?= $_SESSION['usuario']['email']; ?></span><span> </span>
                                 <br>
-                                <a href="#" class="btn btn-primary btn-block"><b>Editar foto</b></a>
+                                <a href="#" class="btn btn-primary btn-block botao border"><b>Editar foto</b></a>
                             </div>
 
                         </div>
@@ -541,14 +577,13 @@ $config = $c->Listar();
                         <br>
 
                         <div class="cadastrar mb-3 d-flex flex-column justify-content-center">
-                            <button type="submit" class="btn btn-primary" href="#">Editar perfil</button>
+                            <button type="submit" class="btn btn-primary botao border" href="#">Editar perfil</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
