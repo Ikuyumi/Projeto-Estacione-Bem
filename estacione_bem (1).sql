@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13/06/2024 às 02:33
+-- Tempo de geração: 14/06/2024 às 02:51
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -66,7 +66,7 @@ CREATE TABLE `estacionamento` (
 --
 
 INSERT INTO `estacionamento` (`id`, `placa`, `celular`, `data_entrada`, `data_saida`, `convenio`, `id_usuario`, `id_tipo`, `observacoes`, `pago`) VALUES
-(1, 'cgw0i33', '11991340806', '2024-04-29 22:46:49', NULL, 3, 1, 3, '', 1),
+(1, 'cgw0i33', '11991340806', '2024-04-29 22:46:49', '2024-06-12 21:34:43', 3, 1, 3, '', 1),
 (5, 'XYU4APU', '12558649332', '2024-05-30 03:25:21', NULL, 3, 4, 3, '', 0),
 (6, 'CGW0I33', '12558649332', '2024-05-30 03:26:51', NULL, 2, 4, 5, 'Parabrisa arranhado', 0),
 (7, 'QWS5M91', '12558649332', '2024-05-30 04:00:04', NULL, 3, 4, 3, '', 0),
@@ -75,7 +75,8 @@ INSERT INTO `estacionamento` (`id`, `placa`, `celular`, `data_entrada`, `data_sa
 (11, 'CGW0I33', '12558649332', '2024-05-30 04:22:27', NULL, 4, 4, 5, '', 0),
 (12, 'bbb1b11', '12558649332', '2024-05-30 04:31:44', NULL, 3, 4, 3, '', 0),
 (13, 'cgw0i33', '12558649332', '2024-05-30 05:40:19', NULL, 3, 4, 2, '', 0),
-(14, 'QWS5M91', '12558649332', '2024-06-04 03:01:49', NULL, 3, 4, 5, '', 0);
+(14, 'QWS5M91', '12558649332', '2024-06-04 03:01:49', NULL, 3, 4, 5, '', 0),
+(18, 'XYUP4AU', '12558649332', '2024-06-14 05:31:40', NULL, 3, 4, 2, 'ekekekekekeke', 0);
 
 -- --------------------------------------------------------
 
@@ -161,18 +162,21 @@ CREATE TABLE `usuarios` (
   `nome` varchar(45) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefone` varchar(11) NOT NULL,
-  `senha` varchar(300) DEFAULT NULL
+  `senha` varchar(300) DEFAULT NULL,
+  `foto` varchar(500) NOT NULL DEFAULT 'semfoto.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `telefone`, `senha`) VALUES
-(1, 'Gui Silva da Lherme', 'guisil@sp.senac.br', '1299734012', '321'),
-(4, 'Juca Uca de Souza', 'juca@gmail.com', '12558649332', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'),
-(5, 'admin', 'admin@admin.com', '12586943967', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'),
-(6, 'Oséias dos Santos Araújo', 'oseiassantosaraujo796@gmail.com', '12991340806', '2fdce24b8eeaa92587874c581c423b395362c1f15ff3b1b81c5adaa92f80b00a');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `telefone`, `senha`, `foto`) VALUES
+(1, 'Gui Silva da Lherme', 'guisil@sp.senac.br', '1299734012', '321', 'c9395a14cdb2ff46d49b1a80dc1e4c1e.jpg'),
+(4, 'Juca Uca de Souza', 'juca@gmail.com', '12558649332', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'c9395a14cdb2ff46d49b1a80dc1e4c1e.jpg'),
+(5, 'admin', 'admin@admin.com', '12586943967', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'c9395a14cdb2ff46d49b1a80dc1e4c1e.jpg'),
+(6, 'Oséias dos Santos Araújo', 'oseiassantosaraujo796@gmail.com', '12991340806', '2fdce24b8eeaa92587874c581c423b395362c1f15ff3b1b81c5adaa92f80b00a', 'c9395a14cdb2ff46d49b1a80dc1e4c1e.jpg'),
+(11, 'Supinelson', 'sus@asdasd.com', '235235', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'b0bee578b1ec97905fb38d0f4a41dc64.jpeg'),
+(13, 'a', 'a@a.com', '31231254215', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'semfoto.jpg');
 
 --
 -- Índices para tabelas despejadas
@@ -233,13 +237,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `configuracoes`
 --
 ALTER TABLE `configuracoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `estacionamento`
 --
 ALTER TABLE `estacionamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `fila_de_servicos`
@@ -269,7 +273,7 @@ ALTER TABLE `tipo`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restrições para tabelas despejadas
