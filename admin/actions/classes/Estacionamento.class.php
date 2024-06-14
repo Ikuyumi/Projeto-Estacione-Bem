@@ -74,8 +74,15 @@ class Estacionamento{
         return $comando->rowCount();
     }
 
-    public function RelatorioVagas(){
-        
+    public function ObterVagasLivres(){
+        $sql = "SELECT (SELECT valor FROM configuracoes WHERE id = 2) - (SELECT COUNT(placa) FROM `estacionamento` 
+        WHERE data_saida IS NULL) AS 'Vagas Livres';";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
     }
 }
 ?>

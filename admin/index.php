@@ -31,6 +31,7 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 //
 $e = new Estacionamento();
 $list_mensalistas = $e->ListarMensalistas();
+$vagaslivres = $e->ObterVagasLivres();
 
 $c = new Configuracao();
 $config = $c->Listar();
@@ -44,63 +45,14 @@ $config = $c->Listar();
     <title>Painel de controle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- style css -->
+   <link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<style>
-    #body {
-        margin: 0%;
-    }
 
-    #Titulo {
-        color: #f5821f;
-
-    }
-
-    .border {
-        border-radius: 10px;
-    }
-
-
-    ul li a:hover {
-        font-size: 13pt;
-        transition: 0.5s;
-        text-shadow: 2px 2px 4px #181818;
-        font-weight: bold;
-        background-color: rgb(202, 67, 13);
-    }
-
-    .botao {
-        background-color: #f5821f;
-        border-color: f5821f;
-    }
-
-    .botao:hover {
-        background-color: black;
-        border-color: black;
-    }
-
-    .negrito {
-        font-weight: bold;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: 10;
-        text-align: center;
-        background-color: black;
-        color: white;
-        padding: 20px;
-        font-size: 15px;
-    }
-
-    /* Teste */
-</style>
-
-<body>
-    <div class="row">
+<body class="bg-dark text-light">
+    <div class="row conteudo">
         <div class="col-md-12 col-xs-6">
             <!-- MENU LATERAL -->
 
@@ -172,7 +124,7 @@ $config = $c->Listar();
                             <div class="dropdown p-4 ">
 
                                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" alt="" width="32" height="32" class="rounded-circle me-2">
+                                    <img src="fotos/<?= $_SESSION['usuario']['foto']; ?>" alt="Foto" width="32" height="32" class="rounded-circle me-2">
                                     <strong><?= ($PrimeiroNome[0]) ?></strong>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
@@ -188,43 +140,43 @@ $config = $c->Listar();
                             </div>
                         </div>
                         <ul>
-                                <br>
-                                <a href="../pagina_inicial/index.php" id="voltarpinicial" class="nav-link text-white">
-                                    <svg class="bi pe-none" width="16" height="16">
-                                        <use xlink:href="#"></use>
-                                    </svg>
-                                    <i class="bi bi-arrow-return-left"></i> Voltar a Página Inicial 
-                                </a>
-                            </ul>
+                            <br>
+                            <a href="../pagina_inicial/index.php" id="voltarpinicial" class="nav-link text-white">
+                                <svg class="bi pe-none" width="16" height="16">
+                                    <use xlink:href="#"></use>
+                                </svg>
+                                <i class="bi bi-arrow-return-left"></i> Voltar a Página Inicial
+                            </a>
+                        </ul>
                     </div>
             </nav>
 
             <!-- PAINEL -->
-            <div class="row m-4 justify-content-center ">
+            <div class="row m-4 justify-content-center">
                 <div id="painel" class="col-md-9 col-sm-9 m-3 border">
                     <form class="m-3" action="">
                         <h2 class="mb-4 fw-bolder">Posição atual</h2>
                         <hr>
                         <p class="mb-4 fs-6 opacity-75">Status do estacionamento e versionamento</p>
                         <table class="table">
-                            <tr>
+                            <tr class="table-dark">
                                 <th scope="col">CAIXA</th>
 
                                 <td scope="col">Aberto - 10/05/2024 19:30</td>
                             </tr>
-                            <tr>
+                            <tr class="table-dark">
                                 <th scope="row">LOCAL</th>
                                 <td>Estacione Bem</td>
                             </tr>
-                            <tr>
+                            <tr class="table-dark">
                                 <th scope="row">VERSÃO</th>
                                 <td>1.0</td>
                             </tr>
-                            <tr>
+                            <tr class="table-dark">
                                 <th scope="row">NÍVEL DE ACESSO</th>
                                 <td>Administrador</td>
                             </tr>
-                            <tr>
+                            <tr class="table-dark">
                                 <th scope="row">ENTRADAS</th>
                                 <td>R$ 0,00</td>
                             </tr>
@@ -274,14 +226,13 @@ $config = $c->Listar();
                             </div>
                         </div>
                         <div class="row">
-                            <!-- <div class="col-md-3 col-sm-3">&nbsp;</div> -->
-                            <div class=" col-md-6 m-3 form-check">
+                            <div class="col-md-6 m-3 form-check">
                                 <input type="checkbox" id="avarias" class="form-check-input" onclick="MostrarObservacao()">
                                 <label class="form-check- fw-bolder" for="observacoes">Possui avarias</label>
                                 <!-- Abrir caixa de observações -->
-                                <div class="form-floating" id="observacoes" style="display:none">
-                                    <textarea class="form-control" placeholder="Digite as observações/avarias do seu veículo." id="observacoes" style="height: 100px"></textarea>
-                                    <label for="observacoes" name="observacoes">Avarias</label>
+                                <div class="form-floating" id="observacoes"  style="display:none">
+                                    <textarea class="form-control" name="observacoes" placeholder="Digite as observações/avarias do seu veículo." id="observacoes" style="height: 100px"></textarea>
+                                    <label for="observacoes">Avarias</label>
                                 </div>
                             </div>
                         </div>
@@ -311,28 +262,28 @@ $config = $c->Listar();
                             </p>
 
                             <table class="table">
-                                <tr>
+                                <tr class="table-dark">
                                     <th scope="col">STATUS</th>
 
                                     <td scope="col">Aberto - 10/05/2024 19:30</td>
                                 </tr>
-                                <tr>
+                                <tr class="table-dark">
                                     <th scope="row">AVULSO</th>
                                     <td>1</td>
                                 </tr>
-                                <tr>
+                                <tr class="table-dark">
                                     <th scope="row">MENSALISTA</th>
                                     <td>0</td>
                                 </tr>
-                                <tr>
+                                <tr class="table-dark">
                                     <th scope="row">ENTRADAS</th>
                                     <td>R$ 0,00</td>
                                 </tr>
-                                <tr>
+                                <tr class="table-dark">
                                     <th scope="row"> A RECEBER</th>
                                     <td>R$ 0,00</td>
                                 </tr>
-                                <tr>
+                                <tr class="table-dark">
                                     <th scope="row"> CAIXA</th>
                                     <td>R$ 0,00</td>
                                 </tr>
@@ -342,7 +293,6 @@ $config = $c->Listar();
                     <!-- HISTÓRICO DE MOVIMENTAÇÕES -->
                     <div class="col-md-9 col-sm-9 container-md m-2 p-3 border">
                         <form class="row" action="">
-                            <hr>
                             <h2 class="mb-4 fw-bolder">Histórico Movimentações</h2>
                             <p class="mb-4 fs-6 opacity-75 fw-bold "><span class="fw-bolder">Período</span>
                                 <br>
@@ -362,7 +312,7 @@ $config = $c->Listar();
 
                             <table class="table">
                                 <thead>
-                                    <tr>
+                                    <tr class="table-dark">
                                         <th scope="col">Ticket</th>
                                         <th scope="col">Placa</th>
                                         <th scope="col">Convênio</th>
@@ -372,7 +322,7 @@ $config = $c->Listar();
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr class="table-dark">
                                         <th scope="row">1</th>
                                         <td>CGW0I33</td>
                                         <td>Avulso</td>
@@ -380,7 +330,7 @@ $config = $c->Listar();
                                         <td>-</td>
                                         <td>R$ 5.000,00</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="table-dark">
                                         <th scope="row">2</th>
                                         <td>CGW0I33</td>
                                         <td>Avulso</td>
@@ -388,7 +338,7 @@ $config = $c->Listar();
                                         <td>-</td>
                                         <td>R$ 5.000,00</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="table-dark">
                                         <th scope="row">3</th>
                                         <td>CGW0I33</td>
                                         <td>Avulso</td>
@@ -421,7 +371,7 @@ $config = $c->Listar();
                         <table class="table">
 
                             <thead>
-                                <tr>
+                                <tr class="table-dark">
                                     <th scope="col">Ticket</th>
                                     <th scope="col">Placa</th>
                                     <th scope="col">Última entrada</th>
@@ -456,12 +406,12 @@ $config = $c->Listar();
                 <!-- CONFIGURAÇÕES -->
                 <div id="controleDeVagas" class="row justify-content-center">
                     <div class="col-md-6 container-md m-2 p-3">
-                        <div class="card p-4">
+                        <div class="card bg-dark text-light border-white p-4">
                             <h2 class="mt-3 negrito">Configurações<br> </h2>
                             <hr>
                             <table class="table mt-3">
                                 <?php foreach ($config as $listconfig) { ?>
-                                    <tr>
+                                    <tr class="table-dark">
                                         <td class="negrito"><?= $listconfig['nome_configuracao']; ?></td>
                                         <td><?= $listconfig['valor']; ?></td>
                                     </tr>
@@ -476,7 +426,7 @@ $config = $c->Listar();
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="modalVagasLabel">Editar Vagas</h1>
+                                        <h1 class="modal-title fs-5 text-black" id="modalVagasLabel">Editar Vagas</h1>
                                     </div>
                                     <div class="modal-body">
                                         <table class="table mt-3">
@@ -504,35 +454,31 @@ $config = $c->Listar();
                     </div>
                 </div>
 
-                <!-- FOOTER -->
-                <div class="footer">Copyright 2024. Todos os Direitos Reservados</div>
-
-
-
                 <!-- Histórico financeiro (TESTE) -->
                 <div class="col-sm-9 col-md-9 m-o justify-content-center" id="relatorio" style="width:100%;max-width:700px"></div>
             </div>
         </div>
-
+        <!-- FOOTER -->
+        <div class="footer">Copyright 2024. Todos os Direitos Reservados</div>
     </div>
     <!-- Modal's -->
 
     <!-- Perfil -->
     <div class="modal fade" id="modalPerfil" tabindex="-1" aria-labelledby="modalperfilLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content bg-dark">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="modalperfilnLabel">Perfil</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="card p-4">
+                    <div class="card p-4 bg-dark text-light">
                         <div class=" image d-flex flex-column justify-content-center align-items-center">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s" height="100" width="100" /></button>
+                            <img src="fotos/<?= $_SESSION['usuario']['foto']; ?>" alt="Foto" height="100" width="100" /></button>
                             <span class="name mt-3"><?= $_SESSION['usuario']['nome']; ?></span>
                             <span class="idd"><?= $_SESSION['usuario']['email']; ?></span>
                             <div class="text mt-3"> <span>Administrador do Estacionamento<br> </div>
-                            <div class=" px-2 rounded mt-4 date "> <span class="join">Ingressou em Junho, 2024 ?></span> </div>
+                            <div class=" px-2 rounded mt-4 date "> <span class="join">Ingressou em Junho, 2024</span> </div>
                         </div>
                     </div>
                 </div>
@@ -543,10 +489,10 @@ $config = $c->Listar();
     <!-- Editar Perfil -->
     <div class="modal fade" id="modalEditarPerfil" tabindex="-1" aria-labelledby="modaleditarPerfilLabel" aria-hidden="true">
         <div class="modal-dialog ">
-            <div class="modal-content">
+            <div class="modal-content bg-dark">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="modaleditarPerfilnLabel">Perfil</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="actions/editar_usuario.php" method="POST">
@@ -554,17 +500,22 @@ $config = $c->Listar();
                             <h4 class="text-center">Configurações do perfil</h4>
                         </div>
                         <div class="image d-flex flex-column justify-content-center align-items-center">
-                            <div class="d-flex flex-column align-items-center text-center p-1 "><img class="rounded-circle " width="150px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFRbGzH16ONBKxPFysaNPBuX3oOurb0cXkaM1RXM9T4A&s"><span class="font-weight-bold"><?= $_SESSION['usuario']['nome']; ?></span><span class="text-black-50"><?= $_SESSION['usuario']['email']; ?></span><span> </span>
-                                <br>
-                                <a href="#" class="btn btn-primary btn-block botao border"><b>Editar foto</b></a>
+                            <div class="d-flex flex-column align-items-center text-center p-1 ">
+                                <img class="rounded-circle" width="150px" src="fotos/<?= $_SESSION['usuario']['foto']; ?>" alt="Foto">
+                                <span class="font-weight-bold"><?= $_SESSION['usuario']['nome']; ?></span>
+                                <span class="text-light"><?= $_SESSION['usuario']['email']; ?></span><span> </span>
                             </div>
 
                         </div>
-                        <div class="mb-3  d-flex flex-column justify-content-center ">
+                        <div class="mb-3 d-flex flex-column justify-content-center ">
+                        <a >Editar Foto</a>
+                                <input type="file" id="fotoProduto" name="foto">
+                        </div>
+                        <div class="mb-3 d-flex flex-column justify-content-center ">
                             <label for="username">Nome Completo</label>
                             <input type="text" placeholder="Insira seu nome completo" id="nome" name="nome">
                         </div>
-                        <div class="mb-3  d-flex flex-column justify-content-center">
+                        <div class="mb-3 d-flex flex-column justify-content-center">
                             <label for="email">Email</label>
                             <input type="email" placeholder="Insira seu email" id="email" name="email">
                         </div>

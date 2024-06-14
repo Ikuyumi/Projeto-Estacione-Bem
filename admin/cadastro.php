@@ -22,7 +22,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
         <!--Stylesheet-->
         <style media="screen">
-           *,
+            *,
             *:before,
             *:after {
                 padding: 0;
@@ -67,12 +67,12 @@
             }
 
             form {
-                height: 680px;
+                height: 900px;
                 width: 400px;
                 background-color: rgba(255, 255, 255, 0.13);
                 position: absolute;
                 transform: translate(-50%, -50%);
-                top: 50%;
+                top: 60%;
                 left: 50%;
                 border-radius: 10px;
                 backdrop-filter: blur(10px);
@@ -119,7 +119,8 @@
                 color: rgb(229, 229, 229);
             }
 
-            button a:hover, a.cadastrar:hover {
+            button a:hover,
+            a.cadastrar:hover {
                 padding: 18px 135px;
                 border-radius: 5px;
                 background-color: #e78229;
@@ -168,6 +169,21 @@
                 text-decoration: none;
             }
 
+            .botao2 {
+                margin-top: 50px;
+                width: 100%;
+                background-color: #37373E;
+                color: white;
+                padding: 10px;
+                font-size: 18px;
+                font-weight: 600;
+                border-radius: 5px;
+                cursor: pointer;
+                display: block;
+                text-align: center;
+                text-decoration: none;
+            }
+
         </style>
     </head>
 
@@ -175,9 +191,12 @@
         <div class="background">
             <img src=" ../Imagens/Marca Dagua2.png" alt="Marca D'água" width="1024px">
         </div>
-        <form action="actions/cadastrar_usuario.php" method="POST">
-            
+        <form enctype="multipart/form-data" action="actions/cadastrar_usuario.php" method="POST">
+
             <h3><img src=" ../Imagens/logo.png" alt="Logotipo" width="250px"></h3>
+
+            <label for="fotoProduto">Foto de Perfil (Opcional)</label>
+            <input type="file" class="form-control-file" id="fotoProduto" name="foto">
 
             <label for="username">Nome Completo</label>
             <input type="text" placeholder="Insira seu nome completo" id="nome" name="nome">
@@ -190,21 +209,17 @@
 
             <label for="password">Senha</label>
             <input type="password" placeholder="Insira sua senha" id="senha" name="senha">
-            <br>
 
             <div class="cadastrar">
                 <button type="submit" class="botao" href="#">Cadastrar</button>
             </div>
-
-
-
         </form>
     </body>
 
     </html>
     <!-- partial -->
 
-<script>
+    <script>
         // Alternar entre formulários login x cadastro:
         $("#btnCadastroToggle").click(function() {
             $("#formLogin").hide();
@@ -217,10 +232,10 @@
             $("#titulo").text('Login');
         });
     </script>
-    <?php 
-    
+    <?php
+
     include_once('includes/alertas.include.php');
-    
+
     ?>
 
 </html>
