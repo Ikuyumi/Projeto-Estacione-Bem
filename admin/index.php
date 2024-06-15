@@ -28,7 +28,7 @@ $listserv = $serv->Listar();
 //PEGAR PRIMEIRO NÚMERO
 $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
-//
+
 $e = new Estacionamento();
 $list_mensalistas = $e->ListarMensalistas();
 $vagaslivres = $e->ObterVagasLivres();
@@ -46,7 +46,7 @@ $config = $c->Listar();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- style css -->
-   <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -130,7 +130,7 @@ $config = $c->Listar();
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                                     <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalPerfil">Perfil</a></li>
                                     <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar perfil</a></li>
-                                    <!-- <li><a class="dropdown-item" href="#">Contrato</a></li> -->
+                                    <li><a class="dropdown-item" href="#" type="button" data-bs-toggle="modal" data-bs-target="#modalEditarSenha">Editar Senha</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -230,7 +230,7 @@ $config = $c->Listar();
                                 <input type="checkbox" id="avarias" class="form-check-input" onclick="MostrarObservacao()">
                                 <label class="form-check- fw-bolder" for="observacoes">Possui avarias</label>
                                 <!-- Abrir caixa de observações -->
-                                <div class="form-floating" id="observacoes"  style="display:none">
+                                <div class="form-floating" id="observacoes" style="display:none">
                                     <textarea class="form-control" name="observacoes" placeholder="Digite as observações/avarias do seu veículo." id="observacoes" style="height: 100px"></textarea>
                                     <label for="observacoes">Avarias</label>
                                 </div>
@@ -352,7 +352,7 @@ $config = $c->Listar();
                     </div>
                 </div>
                 <!-- Mensalistas -->
-                <div id="mensalistas" class="col-md-9 col-sm-9 container-md m-2 p-3 border">
+                <div id="mensalistas" class="col-md-9 col-sm-9 col-xs-9 container-md m-2 p-3 border">
                     <form class="row" action="">
                         <hr>
                         <h2 class="mb-4 fw-bolder">Mensalistas</h2>
@@ -383,7 +383,7 @@ $config = $c->Listar();
 
                             <tbody>
                                 <?php foreach ($list_mensalistas as $mens) { ?>
-                                    <tr>
+                                    <tr class="table-dark">
                                         <th scope="row"><?= $mens['id']; ?></th>
                                         <td><?= $mens['placa']; ?></td>
                                         <td><?= $mens['data_entrada']; ?></td>
@@ -474,7 +474,7 @@ $config = $c->Listar();
                 <div class="modal-body">
                     <div class="card p-4 bg-dark text-light">
                         <div class=" image d-flex flex-column justify-content-center align-items-center">
-                            <img src="fotos/<?= $_SESSION['usuario']['foto']; ?>" alt="Foto" height="100" width="100" /></button>
+                            <img src="fotos/<?= $_SESSION['usuario']['foto']; ?>" alt="Foto" width="100" class="rounded-circle" /></button>
                             <span class="name mt-3"><?= $_SESSION['usuario']['nome']; ?></span>
                             <span class="idd"><?= $_SESSION['usuario']['email']; ?></span>
                             <div class="text mt-3"> <span>Administrador do Estacionamento<br> </div>
@@ -495,7 +495,7 @@ $config = $c->Listar();
                     <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="actions/editar_usuario.php" method="POST">
+                    <form enctype="multipart/form-data" action="actions/editar_usuario.php" method="POST">
                         <div class=" d-flex justify-content-center align-items-center mb-3">
                             <h4 class="text-center">Configurações do perfil</h4>
                         </div>
@@ -508,24 +508,20 @@ $config = $c->Listar();
 
                         </div>
                         <div class="mb-3 d-flex flex-column justify-content-center ">
-                        <a >Editar Foto</a>
-                                <input type="file" id="fotoProduto" name="foto">
+                            <a>Editar Foto</a>
+                            <input type="file" id="fotoProduto" name="foto">
                         </div>
                         <div class="mb-3 d-flex flex-column justify-content-center ">
                             <label for="username">Nome Completo</label>
-                            <input type="text" placeholder="Insira seu nome completo" id="nome" name="nome">
+                            <input value="<?= $_SESSION['usuario']['nome'] ?>" type="text" placeholder="Insira outro nome completo" id="nome" name="nome">
                         </div>
                         <div class="mb-3 d-flex flex-column justify-content-center">
                             <label for="email">Email</label>
-                            <input type="email" placeholder="Insira seu email" id="email" name="email">
+                            <input value="<?= $_SESSION['usuario']['email'] ?>" type="email" placeholder="Insira seu novo email" id="email" name="email">
                         </div>
                         <div class="mb-3 d-flex flex-column justify-content-center">
                             <label for="tel">Telefone</label>
-                            <input type="text" placeholder="Insira seu número de telefone celular" id="telefone" name="telefone">
-                        </div>
-                        <div class="mb-3 d-flex flex-column justify-content-center">
-                            <label for="password">Senha</label>
-                            <input type="password" placeholder="Insira sua senha" id="senha" name="senha">
+                            <input value="<?= $_SESSION['usuario']['telefone'] ?>" type="text" placeholder="Insira seu novo número de telefone celular" id="telefone" name="telefone">
                         </div>
                         <br>
 
@@ -534,6 +530,33 @@ $config = $c->Listar();
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editar senha -->
+    <div class="modal fade" id="modalEditarSenha" tabindex="-1" aria-labelledby="modalEditarSenhaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Senha</h1>
+                    <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="actions/editar_senha.php" method="POST">
+                        <div class="mb-3 d-flex flex-column justify-content-center">
+                            <label for="password">Nova Senha</label>
+                            <input type="password" placeholder="Insira sua nova senha" id="senha" name="senha">
+                        </div>
+                        <div class="mb-3 d-flex flex-column justify-content-center">
+                            <label for="password">Confirmar Nova Senha</label>
+                            <input type="password" placeholder="Insira sua nova senha" id="confirmarSenha" name="confirmarSenha">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary botao border">Salvar Nova Senha</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@ class Estacionamento{
     }
 
     public function ListarMensalistas(){
-        $sql = "SELECT * FROM estacionamento WHERE convenio=1";
+        $sql = "SELECT * FROM estacionamento WHERE convenio = 3";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();

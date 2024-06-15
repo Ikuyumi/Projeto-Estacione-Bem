@@ -62,15 +62,47 @@ class Usuario
         }
     }
 
-    public function Editar()
+    public function EditarSemFoto()
     {
-        $sql = "UPDATE usuarios SET nome=?, email=?, telefone=?, senha=? WHERE id=?";
+        $sql = "UPDATE usuarios SET nome=?, email=?, telefone=? WHERE id=?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try {
+            $comando->execute([$this->nome, $this->email, $this->telefone, $this->id]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        } catch (PDOException $e) {
+            Banco::desconectar();
+            return 0;
+        }
+    }
+
+    public function EditarComFoto()
+    {
+        $sql = "UPDATE usuarios SET foto=?, nome=?, email=?, telefone=? WHERE id=?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try {
+            $comando->execute([$this->foto, $this->nome, $this->email, $this->telefone, $this->id]);
+            Banco::desconectar();
+            return $comando->rowCount();
+        } catch (PDOException $e) {
+            Banco::desconectar();
+            return 0;
+        }
+    }
+
+    public function EditarSenha()
+    {
+        $sql = "UPDATE usuarios SET senha=? WHERE id=?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $hash = hash("sha256", $this->senha);
 
         try {
-            $comando->execute([$this->nome, $this->email, $this->telefone, $hash, $this->id]);
+            $comando->execute([$hash, $this->id]);
             Banco::desconectar();
             return $comando->rowCount();
         } catch (PDOException $e) {

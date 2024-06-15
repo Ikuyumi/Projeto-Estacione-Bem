@@ -31,8 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $u->foto = $novo_nome;
             if ($u->CadastrarComFoto() == 1) {
                 header('Location: ../login.php?sucesso=cadastrousuario');
+                die();
             } else {
                 header('Location: ../login.php?falha=cadastrousuario');
+                die();
             }
         } else {
             echo "Falha ao mover a imagem.";
