@@ -12,13 +12,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $v = new Estacionamento();
     $v->placa = strip_tags($_POST['placa']);
-    $v->celular = strip_tags($_POST['celular']);
     $v->convenio = strip_tags($_POST['convenio']);
     $v->id_tipo = strip_tags($_POST['id_tipo']);
     $v->observacoes = strip_tags($_POST['observacoes']);
+    $v->id = $_POST['id'];
 
     // Verificar por dados inválidos:
-        if(strlen($v->placa) !=7 || $v->celular == ""){
+        if(strlen($v->placa) !=7){
             header('Location: ../index.php');
             die();
         }
