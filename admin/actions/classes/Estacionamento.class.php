@@ -24,7 +24,47 @@ class Estacionamento{
     }
 
     public function ListarMensalistas(){
+        $sql = "SELECT * FROM estacionamento WHERE convenio = 4";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
+    }
+
+    public function ListarAvulsos(){
         $sql = "SELECT * FROM estacionamento WHERE convenio = 3";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
+    }
+
+    public function ListarMesAtual(){
+        $sql = "SELECT * FROM estacionamento WHERE Month(data_entrada) = Month(CURRENT_DATE)";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
+    }
+
+    public function ListarDiaAtual(){
+        $sql = "SELECT * FROM estacionamento WHERE Month(data_entrada) = Day (CURRENT_DATE)";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
+    }
+
+    public function ListarAnoAtual(){
+        $sql = "SELECT * FROM estacionamento WHERE Month(data_entrada) = year (CURRENT_DATE)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();

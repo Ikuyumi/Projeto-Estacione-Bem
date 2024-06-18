@@ -30,11 +30,31 @@ $PrimeiroNome = (explode(" ", $_SESSION['usuario']['nome']));
 
 
 $e = new Estacionamento();
+$list = $e->Listar();
 $list_mensalistas = $e->ListarMensalistas();
+$list_avulsos = $e->ListarAvulsos();
 $vagaslivres = $e->ObterVagasLivres();
 
 $c = new Configuracao();
 $config = $c->Listar();
+
+
+//teste diferenças entre horas
+
+// $originalTime = new DateTimeImmutable("2024-06-10 19:40:49");
+// $targedTime = new DateTimeImmutable("2024-06-12 19:45:43");
+// $interval = $originalTime->diff($targedTime);
+// echo $interval->format("%H:%I:%S (Full days: %a)"), "\n";
+
+
+// $time2 = "2024-06-15 15:25:21";
+// $time1 = "2024-06-15 16:45:09";
+// $hourdiff = round((strtotime($time1) - strtotime($time2))/3600, 1);
+// echo sprintf ("Horas ".$hourdiff."\n");
+// echo ($hourdiff*8.0);
+
+
+
 ?>
 
 <html>
@@ -92,6 +112,14 @@ $config = $c->Listar();
                                             <use xlink:href="#movimentacoes"></use>
                                         </svg>
                                         Movimentações
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="Avulso" class="nav-link text-white">
+                                        <svg class="bi pe-none me-2" width="16" height="16">
+                                            <use xlink:href="#mensalistas"></use>
+                                        </svg>
+                                        Diárias Avulsas
                                     </a>
                                 </li>
                                 <li>
@@ -248,7 +276,7 @@ $config = $c->Listar();
                             <p class="mb-4 fs-6 opacity-75 "><span class="fw-bolder">Período</span>
                                 <br>
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
+                                <label class="form-check-label" for="">
                                     Aberto
                                 </label>
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -294,23 +322,24 @@ $config = $c->Listar();
                     <div class="col-md-9 col-sm-9 container-md m-2 p-3 border">
                         <form class="row" action="">
                             <h2 class="mb-4 fw-bolder">Histórico Movimentações</h2>
-                            <p class="mb-4 fs-6 opacity-75 fw-bold "><span class="fw-bolder">Período</span>
+                            <p class="mb-4 fs-6 opacity-75 "><span class="fw-bolder">Período</span>
                                 <br>
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="todos" onclick="Listar('todos')">
+                                <label class="form-check-label" for="">
+                                    Todos
+                                </label>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onclick="Listar()">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Dia
                                 </label>
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onclick="Listar()">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Mês
                                 </label>
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Ano
-                                </label>
                             </p>
 
-                            <table class="table">
+
+                            <table class="table" id="ListarTodos">
                                 <thead>
                                     <tr class="table-dark">
                                         <th scope="col">Ticket</th>
@@ -321,36 +350,89 @@ $config = $c->Listar();
                                         <th scope="col">Total</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    <tr class="table-dark">
-                                        <th scope="row">1</th>
-                                        <td>CGW0I33</td>
-                                        <td>Avulso</td>
-                                        <td>24/04/2024 21:38</td>
-                                        <td>-</td>
-                                        <td>R$ 5.000,00</td>
-                                    </tr>
-                                    <tr class="table-dark">
-                                        <th scope="row">2</th>
-                                        <td>CGW0I33</td>
-                                        <td>Avulso</td>
-                                        <td>24/04/2024 21:38</td>
-                                        <td>-</td>
-                                        <td>R$ 5.000,00</td>
-                                    </tr>
-                                    <tr class="table-dark">
-                                        <th scope="row">3</th>
-                                        <td>CGW0I33</td>
-                                        <td>Avulso</td>
-                                        <td>24/04/2024 21:38</td>
-                                        <td>-</td>
-                                        <td>R$ 5.000,00</td>
-                                    </tr>
+
+                                    <?php foreach ($list as $mens) { ?>
+                                        <tr class="table-dark">
+                                            <th scope="row"><?= $mens['id']; ?></th>
+                                            <td><?= $mens['placa']; ?></td>
+                                            <td><?= $mens['convenio']; ?></td>
+
+
+                                            <td><?= $mens['data_entrada']; ?></td>
+                                            <td><?= $mens['data_saida']; ?></td>
+
+                                            <td><?php $dataSaida = $mens['data_saida'];
+                                                if ((($dataSaida != ""))) {
+                                                    $difHora = round((strtotime($mens['data_saida']) - strtotime($mens['data_entrada'])) / 3600, 1);
+                                                    echo ("R$ " . $difHora * 8);
+                                                } else {
+                                                    echo ("");
+                                                }
+                                                ?></td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
+
                             </table>
                         </form>
                     </div>
                 </div>
+                <!-- Diaria Avulsa -->
+                <div id="avulso" class="col-md-9 col-sm-9 container-md m-2 p-3 border">
+                    <form class="row" action="">
+                        <hr>
+                        <h2 class="mb-4 fw-bolder">Diária Avulsa</h2>
+
+                        <table class="table">
+
+                            <thead>
+                                <tr class="table-dark">
+                                    <th scope="col">Ticket</th>
+                                    <th scope="col">Placa</th>
+                                    <th scope="col">Entrada</th>
+                                    <th scope="col">Saída</th>
+                                    <th scope="col">Observações</th>
+                                    <th scope="col">Total a pagar</th>
+                                    <th scope="col">Pagamento</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php foreach ($list_avulsos as $mens) { ?>
+                                    <tr class="table-dark">
+                                        <th scope="row"><?= $mens['id']; ?></th>
+                                        <td><?= $mens['placa']; ?></td>
+                                        <td><?= $mens['data_entrada']; ?></td>
+                                        <td><?= $mens['data_saida']; ?></td>
+                                        <td><?= $mens['observacoes']; ?></td>
+
+                                        <td><?php $dataSaida = $mens['data_saida'];
+                                            if ((($dataSaida != ""))) {
+                                                $difHora = round((strtotime($mens['data_saida']) - strtotime($mens['data_entrada'])) / 3600, 1);
+                                                echo ("R$ " . $difHora * 8);
+                                            } else {
+                                                echo ("");
+                                            }
+                                            ?></td>
+
+                                        <td><?php if (($mens['pago'] === 1)) {
+                                                echo ("Pago");
+                                            } else {
+                                                echo (" Pendente");
+                                            }
+                                            ?></td>
+                                    </tr>
+                                <?php } ?>
+
+                            </tbody>
+
+                        </table>
+                    </form>
+                </div>
+
                 <!-- Mensalistas -->
                 <div id="mensalistas" class="col-md-9 col-sm-9 col-xs-9 container-md m-2 p-3 border">
                     <form class="row" action="">
@@ -376,8 +458,8 @@ $config = $c->Listar();
                                     <th scope="col">Placa</th>
                                     <th scope="col">Última entrada</th>
                                     <th scope="col">Última saída</th>
+                                    <th scope="col">Observações</th>
                                     <th scope="col">Mensalidade</th>
-
                                 </tr>
                             </thead>
 
@@ -388,6 +470,7 @@ $config = $c->Listar();
                                         <td><?= $mens['placa']; ?></td>
                                         <td><?= $mens['data_entrada']; ?></td>
                                         <td><?= $mens['data_saida']; ?></td>
+                                        <td><?= $mens['observacoes']; ?></td>
                                         <td><?php if (($mens['pago'] === 1)) {
                                                 echo ("Pagamento em dia");
                                             } else {
@@ -396,7 +479,6 @@ $config = $c->Listar();
                                             ?></td>
                                     </tr>
                                 <?php } ?>
-
                             </tbody>
 
                         </table>
@@ -416,6 +498,14 @@ $config = $c->Listar();
                                         <td><?= $listconfig['valor']; ?></td>
                                     </tr>
                                 <?php } ?>
+                                <tr class="table-dark">
+                                    <td class="negrito">Vagas Livres</td>
+                                    <td><?= $c->ListarVagasLivres()[0]["Vagas Livres"]; ?></td>
+                                </tr>
+                                <tr class="table-dark">
+                                    <td class="negrito">Vagas Ocupadas</td>
+                                    <td><?= $c->ListarVagasOcupadas()[0]["Vagas Ocupadas"]; ?></td>
+                                </tr>
                                 <button type="button" class="btn btn-primary botao border" data-bs-toggle="modal" data-bs-target="#modalVagas">
                                     Editar
                                 </button>
@@ -424,30 +514,77 @@ $config = $c->Listar();
                         <!-- Modal -->
                         <div class="modal fade" id="modalVagas" tabindex="-1" aria-labelledby="modalVagasLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-content bg-dark text-light">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5 text-black" id="modalVagasLabel">Editar Vagas</h1>
+                                        <h1 class="modal-title fs-5 text-light" id="modalVagasLabel">Editar Vagas</h1>
                                     </div>
-                                    <div class="modal-body">
-                                        <table class="table mt-3">
-                                            <tr>
-                                                <th scope="col">Total de vagas</th>
-                                                <td> <input type="text" id="totalvagas" name="totalvagas"> </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Vagas livres</th>
-                                                <td> <input type="text" id="vagaslivres" name="vagaslivres"> </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Vagas ocupadas</th>
-                                                <td> <input type="text" id="vagasocupadas" name="vagasocupadas"> </td>
-                                            </tr>
-                                        </table>
+                                    <form action="actions/editar_configuracao.php" method="POST">
+                                        <div class="modal-body bg-dark text-light">
+                                            <table class="table mt-3">
+                                                <tr class="bg-dark text-light">
+                                                    <th scope="row" class="bg-dark text-light">Nome do Estacionamento</th>
+                                                    <td class="bg-dark text-light"> <input value="<?= $config[0]['valor']; ?>" type="text" id="nomeestacionamento" name="nomeestacionamento"> </td>
+                                                </tr>
+                                                <tr class="bg-dark text-light">
+                                                    <th scope="col" class="bg-dark text-light">Total de vagas</th>
+                                                    <td class="bg-dark text-light"> <input value="<?= $config[1]['valor']; ?>" type="text" id="totalvagas" name="totalvagas"> </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary f5821f" data-bs-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-primary botao border">Salvar mudanças</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabela de Preços -->
+                        <div class="card bg-dark text-light border-white p-4">
+                            <h2 class="mt-3 negrito">Tabela de Preços<br> </h2>
+                            <hr>
+                            <table class="table mt-3">
+                                <?php foreach ($listserv as $servicos) { ?>
+                                    <tr class="table-dark">
+                                        <td class="negrito"><?= $servicos['servico']; ?></td>
+                                        <td><?= $servicos['valor']; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                <button type="button" class="btn btn-primary botao border" data-bs-toggle="modal" data-bs-target="#modalTabelaPrecos">
+                                    Editar
+                                </button>
+                            </table>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalTabelaPrecos" tabindex="-1" aria-labelledby="modalTabelaPrecosLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content bg-dark text-light">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5 text-light" id="modalVagasLabel">Editar Preços</h1>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary f5821f" data-bs-dismiss="modal">Fechar</button>
-                                        <button type="submit" class="btn btn-primary botao border">Salvar mudanças</button>
-                                    </div>
+                                    <form action="actions/editar_valor.php" method="POST">
+                                        <div class="modal-body bg-dark text-light">
+                                            <table class="table mt-3">
+                                                <tr class="bg-dark text-light">
+                                                    <td class="bg-dark text-light">Avulso</td>
+                                                    <td class="bg-dark text-light">R$<input value="<?= $listserv[0]['valor']; ?>" type="text" id="servicoavulso" name="servicoavulso"></td>
+                                                </tr>
+                                                <tr class="bg-dark text-light">
+                                                    <td class="bg-dark text-light">Mensal</td>
+                                                    <td class="bg-dark text-light">R$<input value="<?= $listserv[1]['valor']; ?>" type="text" id="servicomensal" name="servicomensal"></td>
+                                                </tr>
+                                                <tr class="bg-dark text-light">
+
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary border" data-bs-dismiss="modal">Fechar</button>
+                                            <button type="submit" class="btn btn-primary botao border">Salvar mudanças</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -461,7 +598,6 @@ $config = $c->Listar();
         <!-- FOOTER -->
         <div class="footer">Copyright 2024. Todos os Direitos Reservados</div>
     </div>
-    <!-- Modal's -->
 
     <!-- Perfil -->
     <div class="modal fade" id="modalPerfil" tabindex="-1" aria-labelledby="modalperfilLabel" aria-hidden="true">
@@ -542,8 +678,8 @@ $config = $c->Listar();
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Senha</h1>
                     <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="actions/editar_senha.php" method="POST">
+                <form action="actions/editar_senha.php" method="POST">
+                    <div class="modal-body">
                         <div class="mb-3 d-flex flex-column justify-content-center">
                             <label for="password">Nova Senha</label>
                             <input type="password" placeholder="Insira sua nova senha" id="senha" name="senha">
@@ -552,10 +688,10 @@ $config = $c->Listar();
                             <label for="password">Confirmar Nova Senha</label>
                             <input type="password" placeholder="Insira sua nova senha" id="confirmarSenha" name="confirmarSenha">
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary botao border">Salvar Nova Senha</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary botao border">Salvar Nova Senha</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -577,6 +713,8 @@ $config = $c->Listar();
         $("#mensalistas").hide();
         $("#relatorio").hide();
         $("#controleDeVagas").hide();
+        $("#avulso").hide();
+        //
 
         // Alternar entre telas:
         $("#RegistroEntrada").click(function() {
@@ -586,6 +724,7 @@ $config = $c->Listar();
             $("#mensalistas").hide();
             $("#relatorio").hide();
             $("#controleDeVagas").hide();
+            $("#avulso").hide();
 
         });
         $("#Painel").click(function() {
@@ -595,7 +734,7 @@ $config = $c->Listar();
             $("#mensalistas").hide();
             $("#relatorio").hide();
             $("#controleDeVagas").hide();
-
+            $("#avulso").hide();
         });
         $("#MovimentacoesDoDia").on("click", function() {
             $("#movimentacoes").fadeIn();
@@ -605,6 +744,7 @@ $config = $c->Listar();
             $("#mensalistas").hide();
             $("#relatorio").hide();
             $("#controleDeVagas").hide();
+            $("#avulso").hide();
         });
         $("#Mensalistas").on("click", function() {
             $("#movimentacoes").hide();
@@ -614,7 +754,7 @@ $config = $c->Listar();
             $("#relatorio").hide();
             $("#mensalistas").fadeIn();
             $("#controleDeVagas").hide();
-
+            $("#avulso").hide();
         });
 
         $("#HistoricoFinanceiro").on("click", function() {
@@ -625,7 +765,7 @@ $config = $c->Listar();
             $("#mensalistas").hide();
             $("#controleDeVagas").hide();
             $("#relatorio").fadeIn();
-
+            $("#avulso").hide();
 
         });
 
@@ -637,8 +777,31 @@ $config = $c->Listar();
             $("#mensalistas").hide();
             $("#relatorio").hide();
             $("#controleDeVagas").fadeIn();
+            $("#avulso").hide();
+        });
+
+        $("#Avulso").on("click", function() {
+            $("#movimentacoes").hide();
+            $("#movimentacoesHoje").hide();
+            $("#painel").hide();
+            $("#entrada").hide();
+            $("#mensalistas").hide();
+            $("#relatorio").hide();
+            $("#controleDeVagas").hide();
+            $("#avulso").fadeIn();
 
         });
+        //
+        function Listar() {
+            var checkBox = document.getElementById("todos");
+            // Se o checkbox estiver marcado
+            if (document.getElementById("todos").checked == true) {
+                $("#ListarTodos").fadeIn();
+            } else {
+                $("#ListarTodos").hide();
+
+            }
+        }
 
         //teste RELATÓRIO FINANCEIRO
         const xArray = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
@@ -676,6 +839,8 @@ $config = $c->Listar();
                 text.style.display = "none";
             }
         }
+
+
 
         Plotly.newPlot("relatorio", data, layout);
     </script>
