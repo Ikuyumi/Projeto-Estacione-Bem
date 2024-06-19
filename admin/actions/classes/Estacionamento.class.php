@@ -22,6 +22,15 @@ class Estacionamento{
         Banco::desconectar();
         return $arr_resultado;
     }
+    public function ListarId(){
+        $sql = "SELECT * FROM estacionamento WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute([$this->id]);
+        $arr_resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        return $arr_resultado;
+    }
 
     public function ListarMensalistas(){
         $sql = "SELECT * FROM estacionamento WHERE convenio = 4";
@@ -54,7 +63,7 @@ class Estacionamento{
     }
 
     public function ListarDiaAtual(){
-        $sql = "SELECT * FROM estacionamento WHERE Month(data_entrada) = Day (CURRENT_DATE)";
+        $sql = "SELECT * FROM estacionamento WHERE Day(data_entrada) = Day (CURRENT_DATE)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -64,7 +73,7 @@ class Estacionamento{
     }
 
     public function ListarAnoAtual(){
-        $sql = "SELECT * FROM estacionamento WHERE Month(data_entrada) = year (CURRENT_DATE)";
+        $sql = "SELECT * FROM estacionamento WHERE Year(data_entrada) = year (CURRENT_DATE)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -78,29 +87,29 @@ class Estacionamento{
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        //try{
+        try{
         $comando->execute([$this->placa, $this->celular, $this->data_entrada, $this->data_saida, $this->convenio, 
         $this->id_usuario, $this->id_tipo, $this->observacoes]);
-        Banco::desconectar();
-        return $comando->rowCount();
-        //}catch(PDOException $e){
-            //Banco::desconectar();
-            //return 0;
-       // }
-    }
-
-    public function Editar(){
-        $sql = "UPDATE estacionamento SET placa=?, convenio=?, id_tipo=?, observacoes=? WHERE id=?";
-        $banco = Banco::conectar();
-        $comando = $banco->prepare($sql);
-        try{
-        $comando->execute([$this->placa, $this->convenio, $this->id_tipo, $this->observacoes, $this->id]);
         Banco::desconectar();
         return $comando->rowCount();
         }catch(PDOException $e){
             Banco::desconectar();
             return 0;
         }
+    }
+
+    public function Editar(){
+        $sql = "UPDATE estacionamento SET placa=?, id_tipo=?, observacoes=? WHERE id=?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+       // try{
+        $comando->execute([$this->placa, $this->id_tipo, $this->observacoes, $this->id]);
+        Banco::desconectar();
+        return $comando->rowCount();
+       // }catch(PDOException $e){
+        //    Banco::desconectar();
+        //    return 0;
+       // }
     }
 
     public function Apagar(){
@@ -124,7 +133,7 @@ class Estacionamento{
     }
 
     public function AtualizarSaida(){
-        $sql = "UPDATE estacionamento SET data_saida=now() WHERE id=?";
+        $sql = "UPDATE estacionamento SET data_saida=now(), pago=1 WHERE id=?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
@@ -132,10 +141,10 @@ class Estacionamento{
             $comando->execute([$this->id]);
             Banco::desconectar();
             return $comando->rowCount();
-        } catch (PDOException $e) {
-            Banco::desconectar();
-            return 0;
-        }
+         } catch (PDOException $e) {
+             Banco::desconectar();
+             return 0;
+         }
     }
 }
 ?>

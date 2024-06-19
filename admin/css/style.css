@@ -22,13 +22,12 @@ ul li a:hover {
 
 .botao {
     background-color: #f5821f;
-    border-color: #f5821f;
+    border-color: f5821f;
 }
 
-
-.botao:hover, .botao:active, .botao:focus-visible {
-    background-color: black !important;
-    border-color: black !important;
+.botao:hover {
+    background-color: black;
+    border-color: black;
 }
 
 .negrito {

@@ -1,12 +1,14 @@
 <?php
 
 require_once('Banco.class.php');
-class Servico{
+class Servico
+{
     public $id;
     public $servico;
     public $valor;
 
-    public function Listar(){
+    public function Listar()
+    {
         $sql = "SELECT * FROM servicos";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -16,7 +18,8 @@ class Servico{
         return $arr_resultado;
     }
 
-    public function ListarPorID(){
+    public function ListarPorID()
+    {
         $sql = "SELECT * FROM servicos WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -28,8 +31,8 @@ class Servico{
     public function Editar()
     {
         $cont = 0;
-        $sql = "UPDATE servicos SET valor=? WHERE id=1";
-        $sql2 = "UPDATE servicos SET valor=? WHERE id=2";
+        $sql = "UPDATE servicos SET valor=? WHERE id=3";
+        $sql2 = "UPDATE servicos SET valor=? WHERE id=4";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         try {
@@ -46,5 +49,3 @@ class Servico{
         }
     }
 }
-
-?>

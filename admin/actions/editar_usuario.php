@@ -61,10 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Editarr sem foto:
         if ($u->EditarSemFoto() == 1) {
             // Redirecionar de volta para login:
+
+            header('Location: ../index.php?sucesso=editarusuario');
             $_SESSION['usuario']['nome'] = $u->nome;
             $_SESSION['usuario']['email'] = $u->email;
             $_SESSION['usuario']['telefone'] = $u->telefone;
-            header('Location: ../index.php?sucesso=editarusuario');
             die();
         } else {
             header('Location: ../index.php?falha=editarusuario');

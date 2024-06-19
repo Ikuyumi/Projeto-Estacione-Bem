@@ -7,7 +7,7 @@ $alertas_sucesso = [
     "registroveiculo" => "Registro bem sucedido!",
     "removerveiculo" => "Removido com sucesso!",
     "editarsenha" => "Senha alterada com sucesso!",
-    "editarconfig" => "Dados alterados com sucesso!",
+    "registrosaida" => "Saída registrada com sucesso!",
     "editarvalor" => "Valores alterados com sucesso!"
 ];
 
@@ -19,8 +19,8 @@ $alertas_falha = [
     "registroveiculo" => "Falha ao registrar. Verifique as informações.",
     "removerveiculo" => "Ocorreu um erro, tente novamente.",
     "editarsenha" => "Você deixou um campo vazio, não confirmou a senha corretamente ou inseriu a mesma senha como uma nova.",
-    "editarconfig" => "Erro! Verifique as informações digitadas.",
-    "editarvalor" => "Erro! Preencha os campos corretamente."
+    "registrosaida" => "Ocorreu um erro ao registrar a saída.",
+    "editarvalor" => "Ocorreu um erro ao editar os valores."
 ];
 
 ?>

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../index.php');
         die();
     }
-    
+
     if ($serv->Editar() > 0) {
         header('Location: ../index.php?sucesso=editarvalor');
         die();
